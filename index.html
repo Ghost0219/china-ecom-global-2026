@@ -239,6 +239,14 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
       <a href="#trends">🔮 趋势</a>
       <a href="#timeline">📅 大事记</a>
       <a href="#compare">📊 对比</a>
+      <div class="lang-swt" style="position:relative;margin-left:.6rem">
+        <button class="lang-btn" onclick="toggleLang()" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.3rem .7rem;color:var(--text-dim);font-size:.72rem;cursor:pointer;display:flex;align-items:center;gap:.25rem"><span id="lang-label">简中</span> <span style="font-size:.55rem">▼</span></button>
+        <div id="lang-dd" style="position:absolute;top:calc(100% + 4px);right:0;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:none;min-width:110px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:10">
+          <span class="lang-opt active" onclick="setLang('zh')" style="display:block;padding:.45rem .9rem;font-size:.75rem;color:var(--text-dim);cursor:pointer">简中</span>
+          <span class="lang-opt" onclick="setLang('zh-TW')" style="display:block;padding:.45rem .9rem;font-size:.75rem;color:var(--text-dim);cursor:pointer">繁中</span>
+          <span class="lang-opt" onclick="setLang('en')" style="display:block;padding:.45rem .9rem;font-size:.75rem;color:var(--text-dim);cursor:pointer">English</span>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
@@ -246,14 +254,14 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-inner">
-    <div class="hero-badge">📊 2026 BRIEFING · 数据截至2026年3月</div>
-    <h1>中国电商与物流<br><span class="grad">出海全景</span></h1>
-    <p class="subtitle">从TikTok Shop千亿美元GMV到菜鸟全球40+海外仓，深度解析电商与物流两大板块的全球化战略、困境与趋势</p>
+    <div class="hero-badge" data-i18n="hero_badge">📊 2026 BRIEFING · 数据截至2026年3月</div>
+    <h1><span data-i18n="hero_t1">中国电商与物流</span><br><span class="grad" data-i18n="hero_t2">出海全景</span></h1>
+    <p class="subtitle" data-i18n="hero_sub">从TikTok Shop千亿美元GMV到菜鸟全球40+海外仓，深度解析电商与物流两大板块的全球化战略、困境与趋势</p>
     <div class="hero-stats">
-      <div class="stat"><div class="num">8万亿+</div><div class="label">全球跨境电商(美元)</div></div>
-      <div class="stat"><div class="num">35%+</div><div class="label">中国占比</div></div>
-      <div class="stat"><div class="num">+58%</div><div class="label">出海物流订单增速</div></div>
-      <div class="stat"><div class="num">千亿美元</div><div class="label">TikTok Shop年GMV</div></div>
+      <div class="stat"><div class="num">8万亿+</div><div class="label" data-i18n="s1">全球跨境电商(美元)</div></div>
+      <div class="stat"><div class="num">35%+</div><div class="label" data-i18n="s2">中国占比</div></div>
+      <div class="stat"><div class="num">+58%</div><div class="label" data-i18n="s3">出海物流订单增速</div></div>
+      <div class="stat"><div class="num">千亿美元</div><div class="label" data-i18n="s4">TikTok Shop年GMV</div></div>
     </div>
     <a href="#daily" class="scroll-hint">探索更多 <div class="arrow"></div></a>
   </div>
@@ -264,8 +272,8 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
   <div class="wrap">
     <div class="reveal">
       <div class="news-head">
-        <div><div class="sec-label">📰 最新动态</div><h2 class="sec-title">行业资讯</h2></div>
-        <div class="news-time"><span class="dot"></span>最后更新：2026-03-25</div>
+        <div><div class="sec-label" data-i18n="n_lab">📰 最新动态</div><h2 class="sec-title" data-i18n="n_tit">行业资讯</h2></div>
+        <div class="news-time"><span class="dot"></span><span data-i18n="n_upd">最后更新：2026-03-25</span></div>
       </div>
     </div>
     <div class="news-list reveal">
@@ -378,9 +386,9 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 <section id="map" class="map-section">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-label">🗺️ 全球布局</div>
-      <h2 class="sec-title">交互式世界地图</h2>
-      <p class="sec-desc">点击地图上的标记点，查看各地区的企业布局详情。</p>
+      <div class="sec-label" data-i18n="m_lab">🗺️ 全球布局</div>
+      <h2 class="sec-title" data-i18n="m_tit">交互式世界地图</h2>
+      <p class="sec-desc"><span data-i18n="m_desc">点击地图上的标记点，查看各地区的企业布局详情。</span></p>
     </div>
     <div class="map-wrap reveal">
       <svg class="map-svg" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
@@ -475,9 +483,9 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 <section id="keywords">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-label">🏷️ 热词云图</div>
-      <h2 class="sec-title">出海关键词</h2>
-      <p class="sec-desc">点击每个热词查看其含义与入选原因。</p>
+      <div class="sec-label" data-i18n="k_lab">🏷️ 热词云图</div>
+      <h2 class="sec-title" data-i18n="k_tit">出海关键词</h2>
+      <p class="sec-desc"><span data-i18n="k_desc">点击每个热词查看其含义与入选原因。</span></p>
     </div>
     <div class="kw-cloud reveal">
       <span class="kw xl" data-kw="crossborder">跨境电商
@@ -536,9 +544,9 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 <section id="ecom">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-label">🛒 板块一</div>
-      <h2 class="sec-title">电商平台出海</h2>
-      <p class="sec-desc">按体量排序：TikTok Shop、SHEIN、速卖通、Temu、京东国际。机遇与挑战并存。</p>
+      <div class="sec-label" data-i18n="e_lab">🛒 板块一</div>
+      <h2 class="sec-title" data-i18n="e_tit">电商平台出海</h2>
+      <p class="sec-desc"><span data-i18n="e_desc">按体量排序：TikTok Shop、SHEIN、速卖通、Temu、京东国际。机遇与挑战并存。</span></p>
     </div>
     <div class="pgrid">
 
@@ -668,9 +676,9 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 <section id="logi" class="map-section">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-label">📦 板块二</div>
-      <h2 class="sec-title">物流商出海</h2>
-      <p class="sec-desc">按体量排序：菜鸟、顺丰、极兔、京东产发、百世。支撑中国电商全球化的基础设施力量。</p>
+      <div class="sec-label" data-i18n="l_lab">📦 板块二</div>
+      <h2 class="sec-title" data-i18n="l_tit">物流商出海</h2>
+      <p class="sec-desc"><span data-i18n="l_desc">按体量排序：菜鸟、顺丰、极兔、京东产发、百世。支撑中国电商全球化的基础设施力量。</span></p>
     </div>
     <div class="pgrid">
 
@@ -804,8 +812,8 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 <section id="trends">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-label">🔮 关键趋势</div>
-      <h2 class="sec-title">2026年六大趋势</h2>
+      <div class="sec-label" data-i18n="t_lab">🔮 关键趋势</div>
+      <h2 class="sec-title" data-i18n="t_tit">2026年六大趋势</h2>
     </div>
     <div class="tgrid reveal">
       <div class="tcard"><div class="tnum">01</div><div class="ttitle">全托管→半托管→本地托管</div><div class="tdesc">平台从包揽一切向商家本地化运营演进，提升时效、降低关税风险。Temu、速卖通率先推进。</div></div>
@@ -822,9 +830,9 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 <section id="timeline" class="map-section">
   <div class="wrap">
     <div class="reveal">
-      <div class="sec-label">📅 关键事件</div>
-      <h2 class="sec-title">2016—2026 出海十年大事记</h2>
-      <p class="sec-desc"><span class="tl-tag e">电商</span> <span class="tl-tag l">物流</span> 点击可查看信息来源</p>
+      <div class="sec-label" data-i18n="tl_lab">📅 关键事件</div>
+      <h2 class="sec-title" data-i18n="tl_tit">2016—2026 出海十年大事记</h2>
+      <p class="sec-desc"><span class="tl-tag e">电商</span> <span class="tl-tag l">物流</span> <span data-i18n="tl_desc">点击可查看信息来源</span></p>
     </div>
     <div class="tl reveal">
 
@@ -891,9 +899,9 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 <section id="compare">
   <div class="wrap">
     <div class="reveal" style="margin-bottom:2.5rem">
-      <div class="sec-label">📊 电商平台对比</div>
-      <h2 class="sec-title">五大电商平台一览</h2>
-      <p class="sec-desc">点击公司名称可访问官网</p>
+      <div class="sec-label" data-i18n="c1_lab">📊 电商平台对比</div>
+      <h2 class="sec-title" data-i18n="c1_tit">五大电商平台一览</h2>
+      <p class="sec-desc"><span data-i18n="c1_desc">点击公司名称可访问官网</span></p>
       <div class="cmp-wrap">
         <table class="cmp">
           <thead><tr><th>平台</th><th>覆盖市场</th><th>规模</th><th>核心模式</th><th>2026重点</th><th>主要风险</th></tr></thead>
@@ -908,9 +916,9 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
       </div>
     </div>
     <div class="reveal">
-      <div class="sec-label">📊 物流商对比</div>
-      <h2 class="sec-title">五大物流商一览</h2>
-      <p class="sec-desc">点击公司名称可访问官网</p>
+      <div class="sec-label" data-i18n="c2_lab">📊 物流商对比</div>
+      <h2 class="sec-title" data-i18n="c2_tit">五大物流商一览</h2>
+      <p class="sec-desc"><span data-i18n="c2_desc">点击公司名称可访问官网</span></p>
       <div class="cmp-wrap">
         <table class="cmp">
           <thead><tr><th>企业</th><th>海外覆盖</th><th>核心优势</th><th>出海模式</th><th>2026重点</th><th>主要风险</th></tr></thead>
@@ -929,8 +937,8 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0})" aria-label="回到顶部">↑</button>
 <footer>
-  <p>出海罗盘 · ChinaEcom Atlas · 编制日期：2026年3月25日</p>
-  <p class="disclaimer">本简报基于公开信息整理，数据和观点仅供参考，不构成投资建议。</p>
+  <p><span data-i18n="ft">出海罗盘 · ChinaEcom Atlas · 编制日期：2026年3月25日</span></p>
+  <p class="disclaimer"><span data-i18n="fd">本简报基于公开信息整理，数据和观点仅供参考，不构成投资建议。</span></p>
 </footer>
 
 <script>
@@ -973,6 +981,33 @@ document.querySelectorAll('.kw[data-kw]').forEach(kw=>{
   kw.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();kw.click()}});
 });
 document.addEventListener('click',e=>{if(!e.target.closest('.kw'))document.querySelectorAll('.kw').forEach(k=>k.classList.remove('active'))});
+
+// LANGUAGE SWITCHER
+const i18n={'zh-TW':{hero_badge:'📊 2026 BRIEFING · 數據截至2026年3月',hero_t1:'中國電商與物流',hero_t2:'出海全景',hero_sub:'從TikTok Shop千億美元GMV到菜鳥全球40+海外倉，深度解析電商與物流兩大板塊的全球化戰略、困境與趨勢',s1:'全球跨境電商(美元)',s2:'中國佔比',s3:'出海物流訂單增速',s4:'TikTok Shop年GMV',n_lab:'📰 最新動態',n_tit:'行業資訊',n_upd:'最後更新：2026-03-25',m_lab:'🗺️ 全球佈局',m_tit:'交互式世界地圖',m_desc:'點擊地圖上的標記點，查看各地區的企業佈局詳情。',k_lab:'🏷️ 熱詞雲圖',k_tit:'出海關鍵詞',k_desc:'點擊每個熱詞查看其含義與入選原因。',e_lab:'🛒 板塊一',e_tit:'電商平台出海',e_desc:'按體量排序：TikTok Shop、SHEIN、速賣通、Temu、京東國際。機遇與挑戰並存。',l_lab:'📦 板塊二',l_tit:'物流商出海',l_desc:'按體量排序：菜鳥、順豐、極兔、京東產發、百世。支撐中國電商全球化的基礎設施力量。',t_lab:'🔮 關鍵趨勢',t_tit:'2026年六大趨勢',tl_lab:'📅 關鍵事件',tl_tit:'2016—2026 出海十年大事記',tl_desc:'點擊可查看資訊來源',c1_lab:'📊 電商平台對比',c1_tit:'五大電商平台一覽',c1_desc:'點擊公司名稱可訪問官網',c2_lab:'📊 物流商對比',c2_tit:'五大物流商一覽',c2_desc:'點擊公司名稱可訪問官網',ft:'出海羅盤 · ChinaEcom Atlas · 編制日期：2026年3月25日',fd:'本簡報基於公開資訊整理，數據和觀點僅供參考，不構成投資建議。',nav:['📰 動態','🗺️ 地圖','🏷️ 熱詞','🛒 電商','📦 物流','🔮 趨勢','📅 大事記','📊 對比']},
+'en':{hero_badge:'📊 2026 BRIEFING · Data as of March 2026',hero_t1:'China E-commerce & Logistics',hero_t2:'Global Expansion',hero_sub:'From TikTok Shop\'s hundred-billion GMV to Cainiao\'s 40+ overseas warehouses — deep analysis of e-commerce and logistics globalization, opportunities and challenges',s1:'Global Cross-border E-com (USD)',s2:'China Share',s3:'Logistics Order Growth',s4:'TikTok Shop Annual GMV',n_lab:'📰 Latest Updates',n_tit:'Industry News',n_upd:'Last updated: 2026-03-25',m_lab:'🗺️ Global Map',m_tit:'Interactive World Map',m_desc:'Click markers on the map to see company layouts by region.',k_lab:'🏷️ Keywords',k_tit:'Going Global Keywords',k_desc:'Click each keyword to see its meaning and why it was selected.',e_lab:'🛒 Sector 1',e_tit:'E-commerce Platforms',e_desc:'Sorted by scale: TikTok Shop, SHEIN, AliExpress, Temu, JD International. Opportunities and challenges.',l_lab:'🛒 Sector 2',l_tit:'Logistics Providers',l_desc:'Sorted by scale: Cainiao, SF, J&T, JD Property, BEST. Infrastructure powering Chinese e-commerce globalization.',t_lab:'🔮 Key Trends',t_tit:'6 Trends for 2026',tl_lab:'📅 Key Events',tl_tit:'2016–2026: A Decade of Going Global',tl_desc:'Click to view source',c1_lab:'📊 E-com Comparison',c1_tit:'5 E-commerce Platforms at a Glance',c1_desc:'Click company name to visit official website',c2_lab:'📊 Logistics Comparison',c2_tit:'5 Logistics Providers at a Glance',c2_desc:'Click company name to visit official website',ft:'ChinaEcom Atlas · Compiled: March 25, 2026',fd:'This briefing is based on public information. Data and opinions are for reference only, not investment advice.',nav:['📰 News','🗺️ Map','🏷️ Keywords','🛒 E-com','📦 Logistics','🔮 Trends','📅 Timeline','📊 Compare']}};
+let curLang='zh';
+function toggleLang(){const d=document.getElementById('lang-dd');d.style.display=d.style.display==='none'?'block':'none'}
+function setLang(lang){
+  curLang=lang;
+  const labels={'zh':'简中','zh-TW':'繁中','en':'English'};
+  document.getElementById('lang-label').textContent=labels[lang];
+  document.querySelectorAll('.lang-opt').forEach(o=>{o.style.color=o.textContent===labels[lang]?'var(--accent)':'var(--text-dim)';o.style.fontWeight=o.textContent===labels[lang]?'700':'400'});
+  document.getElementById('lang-dd').style.display='none';
+  if(lang==='zh'){
+    document.querySelectorAll('[data-i18n]').forEach(el=>{if(el.dataset.orig)el.textContent=el.dataset.orig});
+    return;
+  }
+  const d=i18n[lang];if(!d)return;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    if(!el.dataset.orig)el.dataset.orig=el.textContent;
+    const k=el.getAttribute('data-i18n');
+    if(d[k])el.textContent=d[k];
+  });
+  // Update nav links
+  const navLinks=document.querySelectorAll('.nav-links > a');
+  if(d.nav)navLinks.forEach((a,i)=>{if(d.nav[i]&&!a.querySelector('.lang-btn')&&!a.closest('.lang-swt'))a.textContent=d.nav[i]});
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.lang-swt'))document.getElementById('lang-dd').style.display='none'});
 
 // MAP INTERACTION
 const mapData={
