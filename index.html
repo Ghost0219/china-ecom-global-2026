@@ -231,14 +231,14 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
     <a href="#" class="nav-logo">🧭 出海罗盘 Atlas</a>
     <button class="hamburger" onclick="toggleNav()" aria-label="菜单"><span></span><span></span><span></span></button>
     <div class="nav-links">
-      <a href="#daily">📰 动态</a>
-      <a href="#map">🗺️ 地图</a>
-      <a href="#keywords">🏷️ 热词</a>
-      <a href="#ecom">🛒 电商</a>
-      <a href="#logi">📦 物流</a>
-      <a href="#trends">🔮 趋势</a>
-      <a href="#timeline">📅 大事记</a>
-      <a href="#compare">📊 对比</a>
+      <a href="#daily" data-i18n="nav0">📰 动态</a>
+      <a href="#map" data-i18n="nav1">🗺️ 地图</a>
+      <a href="#keywords" data-i18n="nav2">🏷️ 热词</a>
+      <a href="#ecom" data-i18n="nav3">🛒 电商</a>
+      <a href="#logi" data-i18n="nav4">📦 物流</a>
+      <a href="#trends" data-i18n="nav5">🔮 趋势</a>
+      <a href="#timeline" data-i18n="nav6">📅 大事记</a>
+      <a href="#compare" data-i18n="nav7">📊 对比</a>
       <div class="lang-swt" style="position:relative;margin-left:.6rem">
         <button class="lang-btn" onclick="toggleLang()" style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:.3rem .7rem;color:var(--text-dim);font-size:.72rem;cursor:pointer;display:flex;align-items:center;gap:.25rem"><span id="lang-label">简中</span> <span style="font-size:.55rem">▼</span></button>
         <div id="lang-dd" style="position:absolute;top:calc(100% + 4px);right:0;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:none;min-width:110px;box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:10">
@@ -983,8 +983,8 @@ document.querySelectorAll('.kw[data-kw]').forEach(kw=>{
 document.addEventListener('click',e=>{if(!e.target.closest('.kw'))document.querySelectorAll('.kw').forEach(k=>k.classList.remove('active'))});
 
 // LANGUAGE SWITCHER
-const i18n={'zh-TW':{hero_badge:'📊 2026 BRIEFING · 數據截至2026年3月',hero_t1:'中國電商與物流',hero_t2:'出海全景',hero_sub:'從TikTok Shop千億美元GMV到菜鳥全球40+海外倉，深度解析電商與物流兩大板塊的全球化戰略、困境與趨勢',s1:'全球跨境電商(美元)',s2:'中國佔比',s3:'出海物流訂單增速',s4:'TikTok Shop年GMV',n_lab:'📰 最新動態',n_tit:'行業資訊',n_upd:'最後更新：2026-03-25',m_lab:'🗺️ 全球佈局',m_tit:'交互式世界地圖',m_desc:'點擊地圖上的標記點，查看各地區的企業佈局詳情。',k_lab:'🏷️ 熱詞雲圖',k_tit:'出海關鍵詞',k_desc:'點擊每個熱詞查看其含義與入選原因。',e_lab:'🛒 板塊一',e_tit:'電商平台出海',e_desc:'按體量排序：TikTok Shop、SHEIN、速賣通、Temu、京東國際。機遇與挑戰並存。',l_lab:'📦 板塊二',l_tit:'物流商出海',l_desc:'按體量排序：菜鳥、順豐、極兔、京東產發、百世。支撐中國電商全球化的基礎設施力量。',t_lab:'🔮 關鍵趨勢',t_tit:'2026年六大趨勢',tl_lab:'📅 關鍵事件',tl_tit:'2016—2026 出海十年大事記',tl_desc:'點擊可查看資訊來源',c1_lab:'📊 電商平台對比',c1_tit:'五大電商平台一覽',c1_desc:'點擊公司名稱可訪問官網',c2_lab:'📊 物流商對比',c2_tit:'五大物流商一覽',c2_desc:'點擊公司名稱可訪問官網',ft:'出海羅盤 · ChinaEcom Atlas · 編制日期：2026年3月25日',fd:'本簡報基於公開資訊整理，數據和觀點僅供參考，不構成投資建議。',nav:['📰 動態','🗺️ 地圖','🏷️ 熱詞','🛒 電商','📦 物流','🔮 趨勢','📅 大事記','📊 對比']},
-'en':{hero_badge:'📊 2026 BRIEFING · Data as of March 2026',hero_t1:'China E-commerce & Logistics',hero_t2:'Global Expansion',hero_sub:'From TikTok Shop\'s hundred-billion GMV to Cainiao\'s 40+ overseas warehouses — deep analysis of e-commerce and logistics globalization, opportunities and challenges',s1:'Global Cross-border E-com (USD)',s2:'China Share',s3:'Logistics Order Growth',s4:'TikTok Shop Annual GMV',n_lab:'📰 Latest Updates',n_tit:'Industry News',n_upd:'Last updated: 2026-03-25',m_lab:'🗺️ Global Map',m_tit:'Interactive World Map',m_desc:'Click markers on the map to see company layouts by region.',k_lab:'🏷️ Keywords',k_tit:'Going Global Keywords',k_desc:'Click each keyword to see its meaning and why it was selected.',e_lab:'🛒 Sector 1',e_tit:'E-commerce Platforms',e_desc:'Sorted by scale: TikTok Shop, SHEIN, AliExpress, Temu, JD International. Opportunities and challenges.',l_lab:'🛒 Sector 2',l_tit:'Logistics Providers',l_desc:'Sorted by scale: Cainiao, SF, J&T, JD Property, BEST. Infrastructure powering Chinese e-commerce globalization.',t_lab:'🔮 Key Trends',t_tit:'6 Trends for 2026',tl_lab:'📅 Key Events',tl_tit:'2016–2026: A Decade of Going Global',tl_desc:'Click to view source',c1_lab:'📊 E-com Comparison',c1_tit:'5 E-commerce Platforms at a Glance',c1_desc:'Click company name to visit official website',c2_lab:'📊 Logistics Comparison',c2_tit:'5 Logistics Providers at a Glance',c2_desc:'Click company name to visit official website',ft:'ChinaEcom Atlas · Compiled: March 25, 2026',fd:'This briefing is based on public information. Data and opinions are for reference only, not investment advice.',nav:['📰 News','🗺️ Map','🏷️ Keywords','🛒 E-com','📦 Logistics','🔮 Trends','📅 Timeline','📊 Compare']}};
+const i18n={'zh-TW':{hero_badge:'📊 2026 BRIEFING · 數據截至2026年3月',hero_t1:'中國電商與物流',hero_t2:'出海全景',hero_sub:'從TikTok Shop千億美元GMV到菜鳥全球40+海外倉，深度解析電商與物流兩大板塊的全球化戰略、困境與趨勢',s1:'全球跨境電商(美元)',s2:'中國佔比',s3:'出海物流訂單增速',s4:'TikTok Shop年GMV',n_lab:'📰 最新動態',n_tit:'行業資訊',n_upd:'最後更新：2026-03-25',m_lab:'🗺️ 全球佈局',m_tit:'交互式世界地圖',m_desc:'點擊地圖上的標記點，查看各地區的企業佈局詳情。',k_lab:'🏷️ 熱詞雲圖',k_tit:'出海關鍵詞',k_desc:'點擊每個熱詞查看其含義與入選原因。',e_lab:'🛒 板塊一',e_tit:'電商平台出海',e_desc:'按體量排序：TikTok Shop、SHEIN、速賣通、Temu、京東國際。機遇與挑戰並存。',l_lab:'📦 板塊二',l_tit:'物流商出海',l_desc:'按體量排序：菜鳥、順豐、極兔、京東產發、百世。支撐中國電商全球化的基礎設施力量。',t_lab:'🔮 關鍵趨勢',t_tit:'2026年六大趨勢',tl_lab:'📅 關鍵事件',tl_tit:'2016—2026 出海十年大事記',tl_desc:'點擊可查看資訊來源',c1_lab:'📊 電商平台對比',c1_tit:'五大電商平台一覽',c1_desc:'點擊公司名稱可訪問官網',c2_lab:'📊 物流商對比',c2_tit:'五大物流商一覽',c2_desc:'點擊公司名稱可訪問官網',ft:'出海羅盤 · ChinaEcom Atlas · 編制日期：2026年3月25日',fd:'本簡報基於公開資訊整理，數據和觀點僅供參考，不構成投資建議。',nav0:'📰 動態',nav1:'🗺️ 地圖',nav2:'🏷️ 熱詞',nav3:'🛒 電商',nav4:'📦 物流',nav5:'🔮 趨勢',nav6:'📅 大事記',nav7:'📊 對比'},
+'en':{hero_badge:'📊 2026 BRIEFING · Data as of March 2026',hero_t1:'China E-commerce & Logistics',hero_t2:'Global Expansion',hero_sub:'From TikTok Shop\'s hundred-billion GMV to Cainiao\'s 40+ overseas warehouses — deep analysis of e-commerce and logistics globalization, opportunities and challenges',s1:'Global Cross-border E-com (USD)',s2:'China Share',s3:'Logistics Order Growth',s4:'TikTok Shop Annual GMV',n_lab:'📰 Latest Updates',n_tit:'Industry News',n_upd:'Last updated: 2026-03-25',m_lab:'🗺️ Global Map',m_tit:'Interactive World Map',m_desc:'Click markers on the map to see company layouts by region.',k_lab:'🏷️ Keywords',k_tit:'Going Global Keywords',k_desc:'Click each keyword to see its meaning and why it was selected.',e_lab:'🛒 Sector 1',e_tit:'E-commerce Platforms',e_desc:'Sorted by scale: TikTok Shop, SHEIN, AliExpress, Temu, JD International. Opportunities and challenges.',l_lab:'🛒 Sector 2',l_tit:'Logistics Providers',l_desc:'Sorted by scale: Cainiao, SF, J&T, JD Property, BEST. Infrastructure powering Chinese e-commerce globalization.',t_lab:'🔮 Key Trends',t_tit:'6 Trends for 2026',tl_lab:'📅 Key Events',tl_tit:'2016–2026: A Decade of Going Global',tl_desc:'Click to view source',c1_lab:'📊 E-com Comparison',c1_tit:'5 E-commerce Platforms at a Glance',c1_desc:'Click company name to visit official website',c2_lab:'📊 Logistics Comparison',c2_tit:'5 Logistics Providers at a Glance',c2_desc:'Click company name to visit official website',ft:'ChinaEcom Atlas · Compiled: March 25, 2026',fd:'This briefing is based on public information. Data and opinions are for reference only, not investment advice.',nav0:'📰 News',nav1:'🗺️ Map',nav2:'🏷️ Keywords',nav3:'🛒 E-com',nav4:'📦 Logistics',nav5:'🔮 Trends',nav6:'📅 Timeline',nav7:'📊 Compare'}};
 let curLang='zh';
 function toggleLang(){const d=document.getElementById('lang-dd');d.style.display=d.style.display==='none'?'block':'none'}
 function setLang(lang){
@@ -1003,9 +1003,6 @@ function setLang(lang){
     const k=el.getAttribute('data-i18n');
     if(d[k])el.textContent=d[k];
   });
-  // Update nav links
-  const navLinks=document.querySelectorAll('.nav-links > a');
-  if(d.nav)navLinks.forEach((a,i)=>{if(d.nav[i]&&!a.querySelector('.lang-btn')&&!a.closest('.lang-swt'))a.textContent=d.nav[i]});
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.lang-swt'))document.getElementById('lang-dd').style.display='none'});
 
@@ -1061,6 +1058,40 @@ document.querySelectorAll('.map-dot').forEach(dot=>{
   });
   dot.addEventListener('mouseleave',()=>{
     document.querySelectorAll('.land[data-region="'+key+'"]').forEach(l=>l.classList.remove('highlight'));
+  });
+});
+
+// Company card ↔ Map cross-highlight
+const companyRegions={
+  'TikTok Shop':{dots:['#ff0050'],regions:['north-america','europe','southeast-asia','east-asia','jp-kr','middle-east']},
+  'SHEIN':{dots:['#ec4899'],regions:['north-america','europe','south-america','oceania','middle-east']},
+  '速卖通':{dots:['#06b6d4'],regions:['europe','east-asia','southeast-asia','south-america','middle-east']},
+  'Temu':{dots:['#f59e0b'],regions:['north-america','europe','south-america','oceania']},
+  '京东国际':{dots:['#ef4444'],regions:['europe']},
+  '菜鸟网络':{dots:['#06b6d4'],regions:['north-america','europe','southeast-asia','east-asia','jp-kr','oceania']},
+  '顺丰速运':{dots:['#6366f1'],regions:['north-america','europe','east-asia']},
+  '极兔速递':{dots:['#ff4444'],regions:['southeast-asia','east-asia','south-america','middle-east']},
+  '京东产发':{dots:['#ef4444'],regions:['europe','east-asia','southeast-asia']},
+  '百世集团':{dots:['#22c55e'],regions:['southeast-asia','oceania']}
+};
+document.querySelectorAll('.pcard').forEach(card=>{
+  const name=card.querySelector('.pcard-name');
+  if(!name)return;
+  const txt=name.textContent.replace(/\s*希音|.*Cainiao|.*SF Express|.*J&T Express|.*BEST Inc|.*JINGDONG Property|.*Joybuy/g,'').trim();
+  // Find matching company
+  let matchKey=null;
+  for(const k of Object.keys(companyRegions)){if(txt.includes(k)){matchKey=k;break;}}
+  if(!matchKey)return;
+  card.addEventListener('mouseenter',()=>{
+    const r=companyRegions[matchKey];
+    r.regions.forEach(reg=>{
+      document.querySelectorAll('.land[data-region="'+reg+'"]').forEach(l=>{l.style.fill='rgba(99,102,241,.15)';l.style.stroke='var(--accent)';});
+      document.querySelectorAll('.map-dot[data-info="'+reg+'"]').forEach(d=>{d.style.filter='brightness(2)';d.style.transform='scale(1.5)';d.style.transition='all .3s';});
+    });
+  });
+  card.addEventListener('mouseleave',()=>{
+    document.querySelectorAll('.land').forEach(l=>{l.style.fill='';l.style.stroke='';});
+    document.querySelectorAll('.map-dot').forEach(d=>{d.style.filter='';d.style.transform='';});
   });
 });
 </script>
