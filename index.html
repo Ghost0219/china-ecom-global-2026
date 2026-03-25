@@ -126,6 +126,58 @@
   }
   .hero-stat .label { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.3rem; }
 
+  /* ====== DAILY NEWS ====== */
+  .news-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+  }
+  .update-time {
+    font-size: 0.8rem; color: var(--text-dim);
+    background: var(--surface); padding: 0.4rem 1rem; border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .update-time .dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); margin-right: 0.4rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .news-list { display: flex; flex-direction: column; gap: 1rem; }
+  .news-item {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.2rem 1.5rem;
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .news-item:hover { border-color: rgba(99,102,241,0.4); transform: translateX(4px); }
+  .news-date {
+    flex-shrink: 0; text-align: center;
+    background: var(--surface2); border-radius: 8px; padding: 0.5rem 0.6rem;
+    min-width: 56px;
+  }
+  .news-date .day { font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+  .news-date .month { font-size: 0.65rem; color: var(--text-dim); }
+  .news-body { flex: 1; }
+  .news-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .news-summary { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 0.4rem; }
+  .news-source { font-size: 0.7rem; color: var(--accent3); }
+  .news-source a { color: var(--accent3); text-decoration: none; }
+  .news-source a:hover { text-decoration: underline; }
+  .news-platform-tag {
+    display: inline-block; font-size: 0.65rem; padding: 0.15rem 0.5rem;
+    border-radius: 4px; margin-right: 0.3rem;
+    background: rgba(99,102,241,0.1); color: var(--accent);
+  }
+  .news-platform-tag.tiktok { background: rgba(255,0,80,0.1); color: #ff0050; }
+  .news-platform-tag.temu { background: rgba(245,158,11,0.1); color: #f59e0b; }
+  .news-platform-tag.shein { background: rgba(236,72,153,0.1); color: #ec4899; }
+  .news-platform-tag.ali { background: rgba(6,182,212,0.1); color: #06b6d4; }
+  .news-platform-tag.jd { background: rgba(239,68,68,0.1); color: #ef4444; }
+  .news-platform-tag.industry { background: rgba(16,185,129,0.1); color: #10b981; }
+
   /* ====== SECTIONS ====== */
   .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
   section { padding: 5rem 0; }
@@ -314,6 +366,7 @@
   <div class="nav-inner">
     <div class="nav-logo">🌐 ChinaEcom Global</div>
     <div class="nav-links">
+      <a href="#daily">每日资讯</a>
       <a href="#overview">概览</a>
       <a href="#platforms">平台</a>
       <a href="#trends">趋势</a>
@@ -346,6 +399,66 @@
       <div class="hero-stat">
         <div class="num">150+</div>
         <div class="label">SHEIN覆盖国家</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DAILY NEWS -->
+<section id="daily">
+  <div class="container">
+    <div class="reveal">
+      <div class="news-header">
+        <div>
+          <div class="section-label">📰 每日更新</div>
+          <h2 class="section-title">最新动态</h2>
+        </div>
+        <div class="update-time">
+          <span class="dot"></span>最后更新：<span id="update-time">2026-03-25 15:00</span>
+        </div>
+      </div>
+    </div>
+    <div class="news-list reveal" id="news-list">
+      <!-- 🔽 每日资讯会自动更新插在这里 🔽 -->
+      <div class="news-item">
+        <div class="news-date"><div class="day">25</div><div class="month">3月</div></div>
+        <div class="news-body">
+          <div class="news-title">TikTok Shop计划进军荷兰、比利时、瑞典、波兰四国</div>
+          <div class="news-summary">TikTok Shop正在加速拓展欧洲市场布局，若计划顺利推进，将在欧洲十国开展业务。同时韩国站或于2026年Q3上线。</div>
+          <div class="news-source"><span class="news-platform-tag tiktok">TikTok Shop</span> 来源：36氪 | 泰嘉物流</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date"><div class="day">29</div><div class="month">1月</div></div>
+        <div class="news-body">
+          <div class="news-title">速卖通AliExpress跻身美国增速最快十大平台</div>
+          <div class="news-summary">Similarweb 2026年度Digital 100报告显示，速卖通在美国网站访问量同比增长18.7%，在英、德、澳等多国市场均进增速前10。</div>
+          <div class="news-source"><span class="news-platform-tag ali">AliExpress</span> 来源：腾讯新闻 | Similarweb</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date"><div class="day">24</div><div class="month">2月</div></div>
+        <div class="news-body">
+          <div class="news-title">报告预测TikTok Shop有望2030年前跻身全球三大零售商</div>
+          <div class="news-summary">数字商务咨询公司Flywheel发布报告预测，字节跳动有望在2030年前成为涵盖所有品类的全球三大零售商之一。</div>
+          <div class="news-source"><span class="news-platform-tag tiktok">TikTok Shop</span> 来源：网易 | WWD</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date"><div class="day">09</div><div class="month">1月</div></div>
+        <div class="news-body">
+          <div class="news-title">Temu欧洲用户规模暴涨，成为新增长极</div>
+          <div class="news-summary">随着美国关税壁垒加剧及小额包裹免税政策取消，欧洲市场成为卖家竞相角逐的战略高地，Temu欧洲用户规模出现暴涨。</div>
+          <div class="news-source"><span class="news-platform-tag temu">Temu</span> 来源：新浪财经</div>
+        </div>
+      </div>
+      <div class="news-item">
+        <div class="news-date"><div class="day">11</div><div class="month">4月</div></div>
+        <div class="news-body">
+          <div class="news-title">SHEIN伦敦IPO获英国FCA审批许可</div>
+          <div class="news-summary">SHEIN已获英国金融行为监管局审批许可，待中国监管机构批准后即可赴伦敦IPO，最新估值约500亿美元。</div>
+          <div class="news-source"><span class="news-platform-tag shein">SHEIN</span> 来源：腾讯新闻 | 路透社</div>
+        </div>
       </div>
     </div>
   </div>
