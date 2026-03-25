@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026中国电商平台海外扩张简报</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface2: #1a1a25;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --text-dim: #8888a0;
+    --accent: #6366f1;
+    --accent2: #8b5cf6;
+    --accent3: #06b6d4;
+    --red: #ef4444;
+    --orange: #f59e0b;
+    --green: #10b981;
+    --pink: #ec4899;
+    --gradient: linear-gradient(135deg, #6366f1, #8b5cf6, #06b6d4);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans SC', 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ====== Animated BG ====== */
+  .bg-grid {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .glow-orb {
+    position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.15;
+    pointer-events: none; z-index: 0;
+    animation: float 20s ease-in-out infinite;
+  }
+  .glow-orb.orb1 { width: 600px; height: 600px; background: #6366f1; top: -200px; left: -100px; }
+  .glow-orb.orb2 { width: 500px; height: 500px; background: #06b6d4; bottom: -150px; right: -100px; animation-delay: -10s; }
+  .glow-orb.orb3 { width: 400px; height: 400px; background: #ec4899; top: 50%; left: 50%; animation-delay: -5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -40px) scale(1.05); }
+    66% { transform: translate(-20px, 30px) scale(0.95); }
+  }
+
+  /* ====== NAV ====== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,15,0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+  }
+  .nav-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-weight: 700; font-size: 1.1rem;
+    background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display: flex; gap: 1.5rem; }
+  .nav-links a {
+    color: var(--text-dim); text-decoration: none; font-size: 0.85rem;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ====== HERO ====== */
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 6rem 2rem 4rem;
+  }
+  .hero-content { max-width: 800px; }
+  .hero-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem; border-radius: 999px;
+    background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+    font-size: 0.8rem; color: var(--accent); margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    font-weight: 900; line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 .gradient-text {
+    background: var(--gradient);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 1.15rem; color: var(--text-dim);
+    max-width: 600px; margin: 0 auto 2.5rem;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+    max-width: 700px; margin: 0 auto;
+  }
+  .hero-stat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.2rem 0.8rem;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .hero-stat:hover { transform: translateY(-4px); border-color: var(--accent); }
+  .hero-stat .num {
+    font-size: 1.6rem; font-weight: 700;
+    background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-stat .label { font-size: 0.75rem; color: var(--text-dim); margin-top: 0.3rem; }
+
+  /* ====== SECTIONS ====== */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+  section { padding: 5rem 0; }
+
+  .section-label {
+    font-size: 0.75rem; color: var(--accent); text-transform: uppercase;
+    letter-spacing: 0.15em; margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .section-desc {
+    color: var(--text-dim); font-size: 1rem; max-width: 650px; margin-bottom: 3rem;
+  }
+
+  /* ====== CARDS ====== */
+  .platform-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+  .platform-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .platform-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--gradient); opacity: 0; transition: opacity 0.3s;
+  }
+  .platform-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(99,102,241,0.4);
+    box-shadow: 0 20px 60px rgba(99,102,241,0.1);
+  }
+  .platform-card:hover::before { opacity: 1; }
+
+  .card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+  .card-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; flex-shrink: 0;
+  }
+  .card-icon.tiktok { background: rgba(255,0,80,0.15); }
+  .card-icon.temu { background: rgba(245,158,11,0.15); }
+  .card-icon.shein { background: rgba(236,72,153,0.15); }
+  .card-icon.ali { background: rgba(6,182,212,0.15); }
+  .card-icon.jd { background: rgba(239,68,68,0.15); }
+
+  .card-name { font-size: 1.15rem; font-weight: 700; }
+  .card-sub { font-size: 0.75rem; color: var(--text-dim); }
+
+  .card-metrics {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .metric {
+    background: var(--surface2); border-radius: 8px; padding: 0.8rem;
+  }
+  .metric-val {
+    font-size: 1.1rem; font-weight: 700; color: var(--accent3);
+  }
+  .metric-label { font-size: 0.7rem; color: var(--text-dim); margin-top: 0.2rem; }
+
+  .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .tag {
+    padding: 0.2rem 0.6rem; border-radius: 6px; font-size: 0.7rem;
+    background: rgba(99,102,241,0.1); color: var(--accent);
+    border: 1px solid rgba(99,102,241,0.2);
+  }
+  .tag.hot { background: rgba(239,68,68,0.1); color: var(--red); border-color: rgba(239,68,68,0.2); }
+  .tag.new { background: rgba(16,185,129,0.1); color: var(--green); border-color: rgba(16,185,129,0.2); }
+
+  .card-highlights { list-style: none; }
+  .card-highlights li {
+    padding: 0.4rem 0; font-size: 0.85rem; color: var(--text-dim);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    display: flex; align-items: flex-start; gap: 0.5rem;
+  }
+  .card-highlights li:last-child { border-bottom: none; }
+  .card-highlights .bullet { color: var(--accent); flex-shrink: 0; }
+
+  /* ====== TRENDS ====== */
+  .trend-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem;
+  }
+  .trend-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.8rem;
+    transition: transform 0.3s;
+  }
+  .trend-card:hover { transform: translateY(-4px); }
+  .trend-num {
+    font-size: 2.5rem; font-weight: 900;
+    background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    opacity: 0.3; margin-bottom: 0.5rem;
+  }
+  .trend-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .trend-desc { font-size: 0.85rem; color: var(--text-dim); }
+
+  /* ====== TIMELINE ====== */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2), var(--accent3));
+  }
+  .tl-item { position: relative; margin-bottom: 2rem; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -2rem; top: 0.5rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent); border: 2px solid var(--bg);
+    transform: translateX(-4px);
+  }
+  .tl-date { font-size: 0.75rem; color: var(--accent); margin-bottom: 0.3rem; font-weight: 600; }
+  .tl-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.3rem; }
+  .tl-desc { font-size: 0.85rem; color: var(--text-dim); }
+
+  /* ====== TABLE ====== */
+  .comparison-wrap { overflow-x: auto; margin-top: 2rem; }
+  .comparison-table {
+    width: 100%; border-collapse: collapse;
+    background: var(--surface); border-radius: 12px; overflow: hidden;
+  }
+  .comparison-table th {
+    background: var(--surface2); padding: 1rem;
+    font-size: 0.8rem; font-weight: 600; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .comparison-table td {
+    padding: 0.8rem 1rem; font-size: 0.85rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .comparison-table tr:hover td { background: rgba(99,102,241,0.05); }
+
+  /* ====== SOURCES ====== */
+  .sources-list {
+    columns: 2; column-gap: 2rem;
+    list-style: none;
+  }
+  .sources-list li {
+    break-inside: avoid; padding: 0.6rem 0;
+    font-size: 0.78rem; color: var(--text-dim);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .sources-list .src-num { color: var(--accent); font-weight: 600; margin-right: 0.3rem; }
+  .sources-list a { color: var(--accent3); text-decoration: none; }
+  .sources-list a:hover { text-decoration: underline; }
+
+  /* ====== FOOTER ====== */
+  footer {
+    text-align: center; padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    position: relative; z-index: 1;
+  }
+  footer p { font-size: 0.8rem; color: var(--text-dim); }
+
+  /* ====== ANIMATIONS ====== */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+    .platform-grid { grid-template-columns: 1fr; }
+    .sources-list { columns: 1; }
+    .comparison-table { font-size: 0.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="glow-orb orb1"></div>
+<div class="glow-orb orb2"></div>
+<div class="glow-orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">🌐 ChinaEcom Global</div>
+    <div class="nav-links">
+      <a href="#overview">概览</a>
+      <a href="#platforms">平台</a>
+      <a href="#trends">趋势</a>
+      <a href="#timeline">时间线</a>
+      <a href="#compare">对比</a>
+      <a href="#sources">来源</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">📊 2026 BRIEFING · 数据截至2026年3月</div>
+    <h1>中国电商平台<br><span class="gradient-text">海外扩张全景</span></h1>
+    <p>从TikTok Shop的千亿美元GMV到SHEIN的伦敦IPO，深度解析五大平台的全球化战略与竞争格局</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">8万亿+</div>
+        <div class="label">全球跨境电商市场(美元)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">35%+</div>
+        <div class="label">中国占比</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">4亿</div>
+        <div class="label">TikTok Shop活跃用户</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">150+</div>
+        <div class="label">SHEIN覆盖国家</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">行业总览</div>
+      <h2 class="section-title">出海四强，格局已定</h2>
+      <p class="section-desc">
+        2025-2026年，中国电商平台海外扩张进入"深水区"。美国取消小额免税政策、欧盟加强监管审查、本地化竞争日趋激烈，各平台正从"规模优先"转向"质量优先"的新阶段。
+      </p>
+    </div>
+    <div class="trend-grid reveal">
+      <div class="trend-card">
+        <div class="trend-num">01</div>
+        <div class="trend-title">2.63万亿元</div>
+        <div class="trend-desc">2025年中国跨境电商市场规模，年复合增长率11.8%</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-num">02</div>
+        <div class="trend-title">三强格局</div>
+        <div class="trend-desc">TikTok Shop、Temu、SHEIN形成头部阵营，速卖通、京东国际紧随其后</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-num">03</div>
+        <div class="trend-title">模式升级</div>
+        <div class="trend-desc">全托管 → 半托管 → 本地托管，平台与商家的合作关系正在重塑</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-num">04</div>
+        <div class="trend-title">政策倒逼</div>
+        <div class="trend-desc">美国de minimis免税取消加速中国直邮模式向海外本地化转型</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section id="platforms">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">平台详情</div>
+      <h2 class="section-title">五大平台海外布局</h2>
+      <p class="section-desc">每个平台都有独特的出海路径——从兴趣电商到极致性价比，从柔性供应链到自建物流。</p>
+    </div>
+    <div class="platform-grid">
+
+      <!-- TikTok Shop -->
+      <div class="platform-card reveal">
+        <div class="card-header">
+          <div class="card-icon tiktok">🎵</div>
+          <div>
+            <div class="card-name">TikTok Shop</div>
+            <div class="card-sub">字节跳动 · 兴趣电商</div>
+          </div>
+        </div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val">~千亿美元</div>
+            <div class="metric-label">2025年GMV</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">4亿</div>
+            <div class="metric-label">活跃消费者</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">17国</div>
+            <div class="metric-label">已进入市场</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">增速#1</div>
+            <div class="metric-label">全球电商平台</div>
+          </div>
+        </div>
+        <div class="card-tags">
+          <span class="tag hot">🔥 增速全球第一</span>
+          <span class="tag new">2026 Q3 韩国站</span>
+          <span class="tag">本地托管</span>
+        </div>
+        <ul class="card-highlights">
+          <li><span class="bullet">▸</span>排名第五（仅次于亚马逊、沃尔玛、Shopee、eBay）</li>
+          <li><span class="bullet">▸</span>Q4受"黑五"拉动，单季GMV超250亿美元</li>
+          <li><span class="bullet">▸</span>2026年计划进军荷兰、比利时、瑞典、波兰</li>
+          <li><span class="bullet">▸</span>预测2030年前跻身全球三大零售商</li>
+          <li><span class="bullet">▸</span>欧洲收入仅占全球5.4%，增长空间巨大</li>
+        </ul>
+      </div>
+
+      <!-- Temu -->
+      <div class="platform-card reveal">
+        <div class="card-header">
+          <div class="card-icon temu">🟠</div>
+          <div>
+            <div class="card-name">Temu</div>
+            <div class="card-sub">拼多多 · 极致性价比</div>
+          </div>
+        </div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val">50+国</div>
+            <div class="metric-label">覆盖市场</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">数百亿美元</div>
+            <div class="metric-label">年交易规模</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">半托管</div>
+            <div class="metric-label">核心转型方向</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">欧洲暴涨</div>
+            <div class="metric-label">新增长极</div>
+          </div>
+        </div>
+        <div class="card-tags">
+          <span class="tag hot">美国关税冲击</span>
+          <span class="tag new">本地商家入驻</span>
+          <span class="tag">海外仓布局</span>
+        </div>
+        <ul class="card-highlights">
+          <li><span class="bullet">▸</span>弃用纯"中国直邮"模式，转向美国本地商家</li>
+          <li><span class="bullet">▸</span>从全托管向半托管转型，商家海外建仓</li>
+          <li><span class="bullet">▸</span>欧洲市场成为美国之外最重要的替代增长市场</li>
+          <li><span class="bullet">▸</span>加大AI推荐和供应链数字化投入</li>
+        </ul>
+      </div>
+
+      <!-- SHEIN -->
+      <div class="platform-card reveal">
+        <div class="card-header">
+          <div class="card-icon shein">👗</div>
+          <div>
+            <div class="card-name">SHEIN 希音</div>
+            <div class="card-sub">快时尚 · 柔性供应链</div>
+          </div>
+        </div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val">150+国</div>
+            <div class="metric-label">覆盖市场</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">806亿美元</div>
+            <div class="metric-label">2025目标GMV</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">500亿美元</div>
+            <div class="metric-label">IPO估值</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">伦敦</div>
+            <div class="metric-label">IPO目的地</div>
+          </div>
+        </div>
+        <div class="card-tags">
+          <span class="tag hot">🔥 FCA已批准</span>
+          <span class="tag">小单快反</span>
+          <span class="tag">品类扩展</span>
+        </div>
+        <ul class="card-highlights">
+          <li><span class="bullet">▸</span>2025年4月获英国FCA审批，伦敦IPO关键进展</li>
+          <li><span class="bullet">▸</span>目标收入585亿美元，增长158%</li>
+          <li><span class="bullet">▸</span>de minimis取消对其冲击最大（高度依赖中国直邮小包）</li>
+          <li><span class="bullet">▸</span>从服装向家居、美妆等多元品类扩展</li>
+        </ul>
+      </div>
+
+      <!-- AliExpress -->
+      <div class="platform-card reveal">
+        <div class="card-header">
+          <div class="card-icon ali">🚀</div>
+          <div>
+            <div class="card-name">速卖通 AliExpress</div>
+            <div class="card-sub">阿里巴巴 · 品牌出海</div>
+          </div>
+        </div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val">+18.7%</div>
+            <div class="metric-label">美国访问量增长</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">392亿元</div>
+            <div class="metric-label">国际季度营收</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">TOP10</div>
+            <div class="metric-label">美国增速最快平台</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">YouTube</div>
+            <div class="metric-label">韩国合作</div>
+          </div>
+        </div>
+        <div class="card-tags">
+          <span class="tag new">Similarweb 增速TOP10</span>
+          <span class="tag">Brand+ 计划</span>
+          <span class="tag">本地化运营</span>
+        </div>
+        <ul class="card-highlights">
+          <li><span class="bullet">▸</span>在美、英、德、澳等发达国家均进增速前10</li>
+          <li><span class="bullet">▸</span>首个在韩国与YouTube合作的中国电商平台</li>
+          <li><span class="bullet">▸</span>筹备"最高规格"品牌出海项目，向500强发出邀约</li>
+          <li><span class="bullet">▸</span>差异化品牌策略+坚定本地化是增长关键</li>
+        </ul>
+      </div>
+
+      <!-- JD -->
+      <div class="platform-card reveal">
+        <div class="card-header">
+          <div class="card-icon jd">📦</div>
+          <div>
+            <div class="card-name">京东国际 Joybuy</div>
+            <div class="card-sub">京东 · 品质路线</div>
+          </div>
+        </div>
+        <div class="card-metrics">
+          <div class="metric">
+            <div class="metric-val">欧洲</div>
+            <div class="metric-label">首站市场</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">母婴玩具</div>
+            <div class="metric-label">首推品类</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">自建物流</div>
+            <div class="metric-label">核心优势</div>
+          </div>
+          <div class="metric">
+            <div class="metric-val">精选</div>
+            <div class="metric-label">扩张策略</div>
+          </div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">重资产模式</span>
+          <span class="tag">品质路线</span>
+          <span class="tag">审慎扩张</span>
+        </div>
+        <ul class="card-highlights">
+          <li><span class="bullet">▸</span>2025年4月推出欧洲品牌Joybuy，首站英国</li>
+          <li><span class="bullet">▸</span>依托自建物流和数智化供应链能力</li>
+          <li><span class="bullet">▸</span>进口业务（引全球好物入中国）与精选出口并行</li>
+          <li><span class="bullet">▸</span>相比其他平台节奏审慎，更注重服务体验</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TRENDS -->
+<section id="trends" style="background: var(--surface);">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">关键趋势</div>
+      <h2 class="section-title">2026年四大趋势</h2>
+      <p class="section-desc">政策、技术、市场三重力量正在重塑中国电商出海的底层逻辑。</p>
+    </div>
+    <div class="trend-grid reveal">
+      <div class="trend-card">
+        <div class="trend-num">01</div>
+        <div class="trend-title">从"全托管"到"本地托管"</div>
+        <div class="trend-desc">各平台正从早期的全托管模式向半托管和本地托管演进。核心驱动力：提升配送时效、降低关税风险、增强消费者信任。</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-num">02</div>
+        <div class="trend-title">美国关税政策冲击</div>
+        <div class="trend-desc">2025年初美国取消800美元以下免税政策，虽短暂暂停但不确定性已推动各平台加速转型：本地商家、海外仓、替代市场。</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-num">03</div>
+        <div class="trend-title">欧洲成为新战场</div>
+        <div class="trend-desc">美国政策收紧下欧洲吸引力大增。但GDPR、可持续发展和消费者保护法规构成较高准入门槛。</div>
+      </div>
+      <div class="trend-card">
+        <div class="trend-num">04</div>
+        <div class="trend-title">社交电商与AI驱动</div>
+        <div class="trend-desc">"兴趣电商"成为增长引擎。亚马逊推出Inspire短视频，Shopee联合YouTube/Meta推社交购物。AI在推荐、定价、供应链深度应用。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">关键事件</div>
+      <h2 class="section-title">2025-2026 时间线</h2>
+      <p class="section-desc">中国电商出海的关键里程碑事件。</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-date">2025年2月</div>
+        <div class="tl-title">美国取消小额免税政策</div>
+        <div class="tl-desc">特朗普签署行政令取消800美元以下de minimis免税政策，对中国跨境电商产生重大冲击，随后短暂暂停执行。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025年4月</div>
+        <div class="tl-title">SHEIN获英国FCA审批</div>
+        <div class="tl-desc">SHEIN伦敦IPO取得关键进展，获英国金融行为监管局审批许可，估值约500亿美元。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025年4月</div>
+        <div class="tl-title">京东推出欧洲Joybuy</div>
+        <div class="tl-desc">京东在欧洲推出新线上零售品牌Joybuy，首站聚焦英国母婴与玩具品类。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2025年5月</div>
+        <div class="tl-title">Temu转向美国本地商家</div>
+        <div class="tl-desc">应对关税冲击，Temu弃用纯中国进口模式，开始大规模引入美国本地商家入驻。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026年1月</div>
+        <div class="tl-title">速卖通跻身美国增速TOP10</div>
+        <div class="tl-desc">Similarweb报告显示AliExpress在美国访问量增长18.7%，成增速最快十大平台之一。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026年1月</div>
+        <div class="tl-title">TikTok Shop欧洲本地托管上线</div>
+        <div class="tl-desc">TikTok Shop跨境电商本地托管正式上线，首批开放英、德、法、意、西五国。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026年3月</div>
+        <div class="tl-title">TikTok Shop拟进军欧洲四国+韩国</div>
+        <div class="tl-desc">计划进入荷兰、比利时、瑞典、波兰，韩国站或于Q3上线。欧洲业务将覆盖10国。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026年3月</div>
+        <div class="tl-title">速卖通×YouTube韩国合作</div>
+        <div class="tl-desc">AliExpress成为首个在韩国与YouTube达成购物联盟合作的中国电商平台。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="compare" style="background: var(--surface);">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">横向对比</div>
+      <h2 class="section-title">五平台一览</h2>
+    </div>
+    <div class="comparison-wrap reveal">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>平台</th>
+            <th>覆盖市场</th>
+            <th>规模</th>
+            <th>核心模式</th>
+            <th>2026重点</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>TikTok Shop</strong></td>
+            <td>17个国家</td>
+            <td>GMV ~千亿美元，增速#1</td>
+            <td>兴趣电商 · 直播带货</td>
+            <td>欧洲10国 + 韩国 · 本地托管</td>
+          </tr>
+          <tr>
+            <td><strong>Temu</strong></td>
+            <td>50+ 国家</td>
+            <td>数百亿美元级</td>
+            <td>极致性价比 · 全/半托管</td>
+            <td>欧洲替代增长 · 美国本地化</td>
+          </tr>
+          <tr>
+            <td><strong>SHEIN</strong></td>
+            <td>150+ 国家</td>
+            <td>目标GMV 806亿美元</td>
+            <td>小单快反 · 柔性供应链</td>
+            <td>伦敦IPO · 品类扩展</td>
+          </tr>
+          <tr>
+            <td><strong>速卖通</strong></td>
+            <td>200+ 国家</td>
+            <td>季度营收324亿元</td>
+            <td>品牌出海 · 本地化运营</td>
+            <td>YouTube合作 · Brand+</td>
+          </tr>
+          <tr>
+            <td><strong>京东国际</strong></td>
+            <td>精选市场</td>
+            <td>以进口为主</td>
+            <td>自建物流 · 品质路线</td>
+            <td>欧洲Joybuy · 供应链优势</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">引用来源</div>
+      <h2 class="section-title">信息来源</h2>
+      <p class="section-desc">本简报基于以下公开信息整理，数据和观点仅供参考，不构成投资建议。</p>
+    </div>
+    <div class="reveal">
+      <ol class="sources-list">
+        <li><span class="src-num">[1]</span> 腾讯新闻/上游新闻 — TikTok Shop 2025年增速全球第一 (2026-01-08) <a href="https://news.qq.com/rain/a/20260108A039HE00" target="_blank">→</a></li>
+        <li><span class="src-num">[2]</span> 36氪 — TikTok Shop加速拓展欧洲市场 (2026-03-22) <a href="https://www.36kr.com/p/3733480780202242" target="_blank">→</a></li>
+        <li><span class="src-num">[3]</span> 泰嘉物流 — TikTok Shop韩国站或于2026年Q3上线 (2026-03-20) <a href="https://www.takesend.com/news/19679.html" target="_blank">→</a></li>
+        <li><span class="src-num">[4]</span> 泰嘉物流 — TikTok Shop加速欧洲扩张，2026年覆盖11国 (2026-01-23) <a href="https://www.takesend.com/news/19435.html" target="_blank">→</a></li>
+        <li><span class="src-num">[5]</span> 网易/WWD — TikTok Shop有望2030年前跻身全球三大零售商 (2026-02-24) <a href="https://www.163.com/dy/article/KMHS9HS70514BQ68.html" target="_blank">→</a></li>
+        <li><span class="src-num">[6]</span> 中研网 — 2025年中国跨境电商行业报告 (2025-05-16) <a href="https://www.chinairn.com/news/20250516/144602304.shtml" target="_blank">→</a></li>
+        <li><span class="src-num">[7]</span> 搜狐 — 拼多多崛起：海外扩张深度解析 (2025-03-12) <a href="https://www.sohu.com/a/869887138_122006510" target="_blank">→</a></li>
+        <li><span class="src-num">[8]</span> 财新网/彭博 — Temu弃用中国进口模式，转向美国本地商家 (2025-05-02) <a href="https://database.caixin.com/2025-05-02/102316050.html" target="_blank">→</a></li>
+        <li><span class="src-num">[9]</span> 新浪财经 — Temu欧洲用户规模暴涨 (2026-01-09) <a href="https://finance.sina.cn/tech/2026-01-09/detail-inhfssrv0583065.d.html" target="_blank">→</a></li>
+        <li><span class="src-num">[10]</span> 腾讯新闻/路透社 — Shein伦敦上市获英国FCA批准 (2025-04-11) <a href="https://news.qq.com/rain/a/20250411A08HYF00" target="_blank">→</a></li>
+        <li><span class="src-num">[11]</span> 网易/英国金融时报 — Shein 2025年目标收入585亿美元 (2025-03) <a href="https://www.163.com/dy/article/JT4IBMDV05386VAZ.html" target="_blank">→</a></li>
+        <li><span class="src-num">[12]</span> 泡财经/路透社 — 特朗普叫停小额豁免的影响分析 (2025-02-07) <a href="https://www.popcj.com/depth/4924862502344061" target="_blank">→</a></li>
+        <li><span class="src-num">[13]</span> 腾讯新闻/Similarweb — 速卖通成美国增速最快十大平台之一 (2026-01-29) <a href="https://news.qq.com/rain/a/20260129A0372V00" target="_blank">→</a></li>
+        <li><span class="src-num">[14]</span> 36氪/新浪科技 — 速卖通与YouTube在韩国达成合作 (2026-03-17) <a href="https://www.36kr.com/p/3733480780202242" target="_blank">→</a></li>
+        <li><span class="src-num">[15]</span> 阿里巴巴财报 — 国际数字商业季度营收392亿元 (2026-03-19) <a href="https://www.36kr.com/p/3733480780202242" target="_blank">→</a></li>
+        <li><span class="src-num">[16]</span> 搜狐 — 京东加速跨境电商布局，推出Joybuy (2025-04-10) <a href="https://www.sohu.com/a/881914422_121885028" target="_blank">→</a></li>
+        <li><span class="src-num">[17]</span> 易仓ERP — 美国取消800美元小额免税政策 (2025-02-05) <a href="https://www.eccang.com/news/3702" target="_blank">→</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>2026中国电商平台海外扩张简报 · 编制日期：2026年3月25日</p>
+  <p style="margin-top: 0.5rem; opacity: 0.5;">本简报基于公开信息整理，数据和观点仅供参考，不构成投资建议。</p>
+</footer>
+
+<!-- SCROLL REVEAL -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 200) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
