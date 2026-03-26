@@ -208,37 +208,69 @@ section+section::before{
 .ptag.pship{background:rgba(139,92,246,.1);color:#a78bfa}
 
 /* ===== MAP ===== */
-.map-wrap{position:relative;max-width:900px;margin:0 auto}
-.map-svg{width:100%;height:auto;display:block}
-.map-svg .land{fill:#1a1a30;stroke:#2a2a45;stroke-width:.5;transition:fill .3s}
-.map-svg .land:hover{fill:#252545}
-.map-svg .land.hl{fill:rgba(99,102,241,.18);stroke:var(--ac);stroke-width:1}
-.map-dot{cursor:pointer;transition:all .3s}
-.map-dot:hover,.map-dot:focus{filter:brightness(1.5);outline:none}
-.map-label{font-size:8px;fill:var(--dim);pointer-events:none;font-weight:600}
+.map-layout{display:flex;gap:1.2rem;align-items:flex-start}
+.map-left{flex:1;min-width:0}
+.map-right{width:320px;flex-shrink:0}
+.map-svg{width:100%;height:auto;display:block;background:rgba(0,0,0,.15);border-radius:var(--r);border:1px solid var(--bd)}
+.map-svg .land{fill:#151528;stroke:#252545;stroke-width:.6;transition:fill .3s,stroke .3s,filter .3s;cursor:pointer}
+.map-svg .land:hover{fill:#1e1e3a;stroke:#3a3a60}
+.map-svg .land.hl{fill:rgba(99,102,241,.15);stroke:var(--ac);stroke-width:1.2;filter:drop-shadow(0 0 6px rgba(99,102,241,.2))}
+.map-svg .land.dim{fill:#0e0e1a;stroke:#1a1a30;opacity:.4}
+.map-dot{cursor:pointer;transition:all .3s var(--ease)}
+.map-dot:hover,.map-dot:focus{filter:brightness(1.6);outline:none}
+.map-dot.pulse{animation:dotPulse 2s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{opacity:.7}50%{opacity:1;filter:brightness(1.3)}}
+.map-label{font-size:9px;fill:var(--tx);pointer-events:none;font-weight:700;opacity:.85}
+.map-sublabel{font-size:7px;fill:var(--dim);pointer-events:none}
+.map-size-hint{font-size:6.5px;fill:var(--dim);pointer-events:none;opacity:.5;text-anchor:middle}
 
-/* Map info popup */
-.map-info{
-  position:fixed;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);
-  padding:1rem 1.2rem;max-width:320px;min-width:240px;z-index:200;
-  box-shadow:0 12px 40px rgba(0,0,0,.5);display:none;font-size:.78rem;
+/* Side panel */
+.map-panel{
+  background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);
+  overflow:hidden;transition:all .3s var(--ease);
 }
-.map-info.show{display:block;animation:popIn .2s ease-out}
-@keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-.map-info h4{font-size:.88rem;font-weight:700;margin-bottom:.5rem;color:var(--ac)}
-.map-info ul{list-style:none;padding:0}
-.map-info li{padding:.25rem 0;color:var(--dim);font-size:.75rem}
-.map-info li::before{content:'•';color:var(--ac);font-weight:bold;margin-right:.4rem}
-.map-info .close-btn{
-  position:absolute;top:.5rem;right:.7rem;background:none;border:none;
-  color:var(--dim);cursor:pointer;font-size:1rem;line-height:1;
-  min-width:28px;min-height:28px;display:flex;align-items:center;justify-content:center;
-}
-.map-info .close-btn:hover{color:var(--tx)}
+.map-panel-head{padding:1rem 1.2rem;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
+.map-panel-head h3{font-size:.9rem;font-weight:700;color:var(--ac)}
+.map-panel-close{background:none;border:none;color:var(--dim);cursor:pointer;font-size:1rem;min-width:28px;min-height:28px;display:flex;align-items:center;justify-content:center}
+.map-panel-close:hover{color:var(--tx)}
+.map-panel-body{padding:1rem 1.2rem;max-height:480px;overflow-y:auto}
+.map-panel-empty{padding:2rem 1.2rem;text-align:center;color:var(--dim);font-size:.8rem}
 
-.map-legend{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center;margin-top:1rem;font-size:.7rem;color:var(--dim)}
-.map-legend span{display:flex;align-items:center;gap:.3rem}
+/* Region detail in panel */
+.region-title{font-size:.95rem;font-weight:700;margin-bottom:.6rem;display:flex;align-items:center;gap:.4rem}
+.region-tag{font-size:.6rem;padding:.15rem .5rem;border-radius:4px;background:rgba(99,102,241,.1);color:var(--ac)}
+.region-stat{font-size:.72rem;color:var(--dim);margin-bottom:.8rem}
+.region-companies{display:flex;flex-direction:column;gap:.6rem}
+.region-co{
+  display:flex;align-items:center;gap:.6rem;padding:.5rem .6rem;
+  background:var(--sf2);border-radius:var(--rs);border:1px solid transparent;
+  transition:all .25s var(--ease);cursor:pointer;
+}
+.region-co:hover{border-color:var(--bd);background:rgba(99,102,241,.04)}
+.region-co.active{border-color:var(--ac);background:rgba(99,102,241,.06)}
+.region-co .co-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.region-co .co-name{font-size:.8rem;font-weight:600;flex:1;min-width:0}
+.region-co .co-tag{font-size:.6rem;padding:.1rem .35rem;border-radius:3px;background:rgba(255,255,255,.05);color:var(--dim);flex-shrink:0}
+.region-co .co-share{font-size:.65rem;color:var(--ac3);font-weight:600;flex-shrink:0}
+.co-detail{margin-top:.5rem;padding:.5rem .6rem;background:rgba(99,102,241,.04);border-radius:var(--rs);font-size:.72rem;color:var(--dim);line-height:1.5;display:none}
+.region-co.active+.co-detail{display:block}
+
+/* Company detail in panel */
+.comp-title{font-size:.95rem;font-weight:700;margin-bottom:.4rem;display:flex;align-items:center;gap:.5rem}
+.comp-sub{font-size:.72rem;color:var(--dim);margin-bottom:.8rem}
+.comp-link{display:inline-block;font-size:.7rem;color:var(--ac3);margin-bottom:.8rem;text-decoration:underline}
+.comp-regions{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}
+.comp-region-tag{font-size:.65rem;padding:.2rem .5rem;border-radius:4px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.15);color:var(--ac);cursor:pointer;transition:all .2s}
+.comp-region-tag:hover{background:rgba(99,102,241,.15)}
+.comp-stat{font-size:.72rem;color:var(--dim);line-height:1.6}
+.comp-stat strong{color:var(--tx)}
+
+/* Legend */
+.map-legend{display:flex;flex-wrap:wrap;gap:.6rem .9rem;justify-content:center;margin-top:.8rem;font-size:.68rem;color:var(--dim)}
+.map-legend span{display:flex;align-items:center;gap:.3rem;white-space:nowrap}
 .map-legend .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.map-legend .size-demo{display:flex;align-items:center;gap:.3rem;margin-left:.8rem;padding-left:.8rem;border-left:1px solid var(--bd)}
+.map-legend .size-dot{border-radius:50%;background:var(--dim);opacity:.4}
 
 /* ===== KEYWORDS ===== */
 .kw-cloud{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;padding:1rem 0}
@@ -421,13 +453,10 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
   .news-title{font-size:.82rem}
   .news-sum{font-size:.72rem}
 
-  /* Map info → fixed bottom sheet */
-  .map-info{
-    position:fixed!important;bottom:0!important;left:0!important;right:0!important;
-    top:auto!important;width:auto!important;max-width:none;
-    transform:none!important;border-radius:var(--r) var(--r) 0 0;
-    max-height:50vh;overflow-y:auto;
-  }
+  /* Map layout → stacked */
+  .map-layout{flex-direction:column}
+  .map-right{width:100%}
+  .map-panel-body{max-height:360px}
 
   /* Keyword tooltip → fixed bottom on mobile */
   .kw-tip{
@@ -513,53 +542,59 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
 <section id="map" class="alt-bg"><div class="wrap">
   <div class="reveal"><div class="sec-label" data-i="m_lab">🗺️ 全球布局</div>
   <h2 class="sec-title" data-i="m_tit">交互式世界地图</h2>
-  <p class="sec-desc" data-i="m_desc">点击地图上的标记点，查看各地区的企业布局详情。</p></div>
-  <div class="map-wrap reveal">
-    <svg class="map-svg" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="世界地图">
-      <rect width="1000" height="500" fill="transparent"/>
-      <!-- Simplified continent shapes -->
-      <path class="land" d="M120,80 L230,60 L280,80 L300,120 L280,180 L250,220 L220,240 L180,230 L140,200 L100,160 L90,120 Z" data-region="north-america"/>
-      <path class="land" d="M220,260 L260,250 L290,280 L300,340 L280,400 L250,440 L220,420 L200,360 L210,300 Z" data-region="south-america"/>
-      <path class="land" d="M440,70 L520,60 L560,80 L550,120 L520,150 L480,160 L440,140 L430,100 Z" data-region="europe"/>
-      <path class="land" d="M440,180 L520,170 L560,200 L570,280 L540,360 L500,400 L460,380 L430,320 L420,250 L430,200 Z" data-region="africa"/>
-      <path class="land" d="M560,130 L620,120 L650,150 L640,190 L600,200 L560,180 Z" data-region="middle-east"/>
-      <path class="land" d="M560,50 L750,30 L820,50 L850,80 L830,120 L780,130 L720,120 L650,100 L580,90 Z" data-region="russia"/>
-      <path class="land" d="M650,160 L720,150 L740,190 L720,240 L680,250 L640,220 L640,180 Z" data-region="south-asia"/>
-      <path class="land" d="M740,80 L830,70 L870,100 L860,150 L820,180 L770,170 L740,140 Z" data-region="east-asia"/>
-      <path class="land" d="M740,200 L820,190 L860,220 L850,280 L800,300 L750,280 L730,240 Z" data-region="southeast-asia"/>
-      <path class="land" d="M800,340 L880,330 L920,360 L910,410 L860,430 L810,410 L790,370 Z" data-region="oceania"/>
-      <path class="land" d="M870,100 L900,90 L920,110 L910,140 L880,145 L865,125 Z" data-region="japan-korea"/>
-      <!-- Dots & labels -->
-      <circle class="map-dot" cx="200" cy="140" r="8" fill="#6366f1" opacity=".8" data-info="north-america" tabindex="0" role="button" aria-label="北美市场"/>
-      <circle class="map-dot" cx="180" cy="120" r="6" fill="#f59e0b" opacity=".8" data-info="north-america" tabindex="0" role="button"/>
-      <circle class="map-dot" cx="220" cy="155" r="6" fill="#ec4899" opacity=".8" data-info="north-america" tabindex="0" role="button"/>
-      <text class="map-label" x="195" y="115" data-i="map_na">🇺🇸 北美</text>
-      <circle class="map-dot" cx="490" cy="100" r="8" fill="#6366f1" opacity=".8" data-info="europe" tabindex="0" role="button" aria-label="欧洲市场"/>
-      <circle class="map-dot" cx="510" cy="115" r="6" fill="#ef4444" opacity=".8" data-info="europe" tabindex="0" role="button"/>
-      <circle class="map-dot" cx="470" cy="110" r="6" fill="#f59e0b" opacity=".8" data-info="europe" tabindex="0" role="button"/>
-      <circle class="map-dot" cx="520" cy="90" r="5" fill="#ec4899" opacity=".8" data-info="europe" tabindex="0" role="button"/>
-      <text class="map-label" x="475" y="80" data-i="map_eu">🇪🇺 欧洲</text>
-      <circle class="map-dot" cx="780" cy="240" r="9" fill="#ff4444" opacity=".8" data-info="sea" tabindex="0" role="button" aria-label="东南亚市场"/>
-      <circle class="map-dot" cx="800" cy="255" r="6" fill="#22c55e" opacity=".8" data-info="sea" tabindex="0" role="button"/>
-      <circle class="map-dot" cx="760" cy="230" r="6" fill="#f59e0b" opacity=".8" data-info="sea" tabindex="0" role="button"/>
-      <text class="map-label" x="755" y="218" data-i="map_sea">🌏 东南亚</text>
-      <circle class="map-dot" cx="790" cy="130" r="8" fill="#06b6d4" opacity=".8" data-info="east-asia" tabindex="0" role="button" aria-label="东亚市场"/>
-      <circle class="map-dot" cx="810" cy="120" r="6" fill="#ff0050" opacity=".8" data-info="east-asia" tabindex="0" role="button"/>
-      <circle class="map-dot" cx="770" cy="140" r="6" fill="#ef4444" opacity=".8" data-info="east-asia" tabindex="0" role="button"/>
-      <text class="map-label" x="770" y="105" data-i="map_ea">🇨🇳 东亚</text>
-      <circle class="map-dot" cx="885" cy="115" r="7" fill="#ff0050" opacity=".8" data-info="jp-kr" tabindex="0" role="button" aria-label="日韩市场"/>
-      <text class="map-label" x="875" y="100" data-i="map_jk">🇯🇵🇰🇷 日韩</text>
-      <circle class="map-dot" cx="260" cy="320" r="7" fill="#f59e0b" opacity=".8" data-info="south-america" tabindex="0" role="button" aria-label="拉美市场"/>
-      <circle class="map-dot" cx="275" cy="300" r="5" fill="#ec4899" opacity=".8" data-info="south-america" tabindex="0" role="button"/>
-      <text class="map-label" x="240" y="280" data-i="map_sa">🇧🇷 拉美</text>
-      <circle class="map-dot" cx="600" cy="165" r="7" fill="#f59e0b" opacity=".8" data-info="middle-east" tabindex="0" role="button" aria-label="中东市场"/>
-      <text class="map-label" x="580" y="155" data-i="map_me">🌍 中东</text>
-      <circle class="map-dot" cx="860" cy="380" r="7" fill="#22c55e" opacity=".8" data-info="oceania" tabindex="0" role="button" aria-label="大洋洲市场"/>
-      <circle class="map-dot" cx="840" cy="370" r="5" fill="#f59e0b" opacity=".8" data-info="oceania" tabindex="0" role="button"/>
-      <text class="map-label" x="830" y="355" data-i="map_oc">🇦🇺 大洋洲</text>
-    </svg>
-    <div class="map-info" id="mapInfo"></div>
-    <div class="map-legend" id="mapLegend"></div>
+  <p class="sec-desc" data-i="m_desc">点击区域或企业圆点，查看各地区的企业布局详情。圆点大小代表市场影响力。</p></div>
+  <div class="map-layout reveal">
+    <div class="map-left">
+      <svg class="map-svg" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="世界地图">
+        <defs>
+          <linearGradient id="gNA" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a1a40"/><stop offset="100%" stop-color="#141430"/></linearGradient>
+          <linearGradient id="gEU" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#181840"/><stop offset="100%" stop-color="#121230"/></linearGradient>
+          <linearGradient id="gAsia" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a1a38"/><stop offset="100%" stop-color="#141428"/></linearGradient>
+        </defs>
+        <rect width="1000" height="500" fill="transparent"/>
+        <!-- Grid lines -->
+        <g opacity=".04" stroke="#6366f1" stroke-width=".5" fill="none">
+          <line x1="0" y1="125" x2="1000" y2="125"/><line x1="0" y1="250" x2="1000" y2="250"/><line x1="0" y1="375" x2="1000" y2="375"/>
+          <line x1="250" y1="0" x2="250" y2="500"/><line x1="500" y1="0" x2="500" y2="500"/><line x1="750" y1="0" x2="750" y2="500"/>
+        </g>
+        <!-- North America -->
+        <path class="land" d="M80,60 L150,42 L210,48 L265,68 L300,100 L310,145 L290,175 L260,200 L230,228 L200,240 L170,232 L135,210 L108,178 L85,140 L75,100 Z" data-region="north-america"/>
+        <!-- South America -->
+        <path class="land" d="M215,252 L248,242 L275,258 L298,290 L308,330 L300,375 L285,410 L265,438 L242,448 L225,430 L212,395 L205,350 L208,305 Z" data-region="south-america"/>
+        <!-- Europe -->
+        <path class="land" d="M435,55 L458,42 L490,38 L522,42 L548,55 L558,75 L555,100 L542,122 L522,138 L498,148 L475,145 L455,132 L440,115 L432,90 Z" data-region="europe"/>
+        <!-- Africa -->
+        <path class="land" d="M432,178 L468,168 L505,175 L535,195 L552,228 L558,270 L555,318 L542,358 L522,388 L498,402 L475,395 L455,372 L440,340 L430,298 L425,255 L428,215 Z" data-region="africa"/>
+        <!-- Middle East -->
+        <path class="land" d="M558,138 L585,128 L612,132 L632,148 L642,172 L635,195 L618,208 L595,205 L572,192 L558,172 Z" data-region="middle-east"/>
+        <!-- Russia/Central Asia -->
+        <path class="land" d="M558,32 L628,22 L708,18 L778,25 L838,42 L858,65 L848,95 L825,112 L795,118 L758,115 L718,108 L678,98 L638,88 L598,78 L568,65 Z" data-region="russia"/>
+        <!-- East Asia (China) -->
+        <path class="land" d="M735,72 L768,58 L805,55 L838,65 L858,85 L862,112 L852,142 L835,165 L812,178 L785,182 L758,175 L738,158 L725,138 L722,112 L728,90 Z" data-region="east-asia"/>
+        <!-- Japan/Korea -->
+        <path class="land" d="M872,88 L888,78 L905,82 L915,98 L918,118 L912,135 L898,142 L882,138 L872,122 L870,105 Z" data-region="japan-korea"/>
+        <!-- South Asia -->
+        <path class="land" d="M642,158 L672,148 L702,152 L725,168 L735,192 L732,222 L718,248 L698,258 L675,255 L655,242 L640,222 L635,195 Z" data-region="south-asia"/>
+        <!-- Southeast Asia -->
+        <path class="land" d="M735,202 L768,192 L802,198 L828,215 L842,242 L848,272 L840,298 L822,315 L798,322 L772,315 L752,298 L738,275 L730,248 Z" data-region="southeast-asia"/>
+        <!-- Oceania/Australia -->
+        <path class="land" d="M795,348 L828,338 L868,342 L902,358 L922,382 L928,412 L918,438 L898,448 L872,452 L845,445 L822,430 L805,408 L792,382 Z" data-region="oceania"/>
+        <!-- Dots: sized by market share -->
+        <g id="mapDots"></g>
+        <!-- Region labels -->
+        <g id="mapLabels"></g>
+      </svg>
+      <div class="map-legend" id="mapLegend"></div>
+    </div>
+    <div class="map-right">
+      <div class="map-panel" id="mapPanel">
+        <div class="map-panel-empty" id="mapPanelEmpty">
+          <div style="font-size:1.6rem;margin-bottom:.5rem">👆</div>
+          <div data-i="m_hint">点击地图区域或企业圆点查看详情</div>
+        </div>
+        <div id="mapPanelContent" style="display:none"></div>
+      </div>
+    </div>
   </div>
 </div></section>
 
@@ -630,13 +665,14 @@ const I={
 'zh':{tbl_platform:'平台',tbl_cover:'覆盖市场',tbl_scale:'规模',tbl_mode:'核心模式',tbl_focus:'2026重点',tbl_risk:'主要风险',
 tbl_company:'企业',tbl_advantage:'核心优势',tbl_overseas:'出海模式',
 ch_title:'⚠️ 面临的困境',news_from:'来源',view_src:'点击查看原文',explore:'🔗 点击查看原文 →',
-kw_why:'入选原因：',src_btn:'来源'},
+kw_why:'入选原因：',src_btn:'来源',
+m_hint:'点击地图区域或企业圆点查看详情',m_panel_region:'区域市场',m_panel_comp:'企业布局',m_share:'市场份额',m_back:'← 返回区域',m_all:'全部区域'},
 'zh-TW':{nav0:'動態',nav1:'地圖',nav2:'熱詞',nav3:'電商',nav4:'物流',nav5:'趨勢',nav6:'大事記',nav7:'對比',
 hero_badge:'📊 2026 BRIEFING · 數據截至2026年3月',hero_t1:'中國電商與物流',hero_t2:'出海全景',
 hero_sub:'從TikTok Shop千億美元GMV到菜鳥全球40+海外倉，深度解析電商與物流兩大板塊的全球化戰略、困境與趨勢',
 s1:'全球跨境電商(美元)',s2:'中國佔比',s3:'出海物流訂單增速',s4:'TikTok Shop年GMV',scroll_more:'探索更多',
 n_lab:'📰 最新動態',n_tit:'行業資訊',n_upd:'最後更新：2026-03-25',
-m_lab:'🗺️ 全球佈局',m_tit:'交互式世界地圖',m_desc:'點擊地圖上的標記點，查看各地區的企業佈局詳情。',
+m_lab:'🗺️ 全球佈局',m_tit:'交互式世界地圖',m_desc:'點擊區域或企業圓點，查看各地區的企業佈局詳情。圓點大小代表市場影響力。',m_hint:'點擊地圖區域或企業圓點查看詳情',m_panel_region:'區域市場',m_panel_comp:'企業佈局',m_share:'市場份額',m_back:'← 返回區域',m_all:'全部區域',
 map_na:'🇺🇸 北美',map_eu:'🇪🇺 歐洲',map_sea:'🌏 東南亞',map_ea:'🇨🇳 東亞',map_jk:'🇯🇵🇰🇷 日韓',map_sa:'🇧🇷 拉美',map_me:'🌍 中東',map_oc:'🇦🇺 大洋洲',
 k_lab:'🏷️ 熱詞雲圖',k_tit:'出海關鍵詞',k_desc:'點擊每個熱詞查看其含義與入選原因。',
 e_lab:'🛒 板塊一',e_tit:'電商平台出海',e_desc:'按體量排序：TikTok Shop、SHEIN、速賣通、Temu、京東國際。機遇與挑戰並存。',
@@ -656,7 +692,7 @@ hero_badge:'📊 2026 BRIEFING · Data as of March 2026',hero_t1:'China E-commer
 hero_sub:'From TikTok Shop\'s hundred-billion GMV to Cainiao\'s 40+ overseas warehouses — deep analysis of e-commerce and logistics globalization',
 s1:'Global Cross-border E-com (USD)',s2:'China Share',s3:'Logistics Order Growth',s4:'TikTok Shop Annual GMV',scroll_more:'Explore',
 n_lab:'📰 Latest Updates',n_tit:'Industry News',n_upd:'Last updated: 2026-03-25',
-m_lab:'🗺️ Global Map',m_tit:'Interactive World Map',m_desc:'Click markers on the map to see company layouts by region.',
+m_lab:'🗺️ Global Map',m_tit:'Interactive World Map',m_desc:'Click regions or company dots to see market details. Dot size represents market influence.',m_hint:'Click a region or company dot for details',m_panel_region:'Regional Market',m_panel_comp:'Company Layout',m_share:'Market Share',m_back:'← Back to Region',m_all:'All Regions',
 map_na:'🇺🇸 N. America',map_eu:'🇪🇺 Europe',map_sea:'🌏 SE Asia',map_ea:'🇨🇳 E. Asia',map_jk:'🇯🇵🇰🇷 Japan/Korea',map_sa:'🇧🇷 LatAm',map_me:'🌍 Mid East',map_oc:'🇦🇺 Oceania',
 k_lab:'🏷️ Keywords',k_tit:'Going Global Keywords',k_desc:'Click each keyword to see its meaning and why it was selected.',
 e_lab:'🛒 Sector 1',e_tit:'E-commerce Platforms',e_desc:'Sorted by scale: TikTok Shop, SHEIN, AliExpress, Temu, JD International.',
@@ -762,54 +798,97 @@ tip:{zh:{t:'关税与合规风险',m:'美国加征关税、欧盟碳边境税、
 en:{t:'Tariff & Compliance Risk',m:'US tariffs, EU carbon border tax, data privacy regulations — the biggest external challenges for Chinese e-commerce going global.',r:'De minimis removal, EU DSA, localization requirements — compliance costs are rising fast.'}}}
 ];
 
-// MAP DATA
-const MAP={
-'north-america':{title:{zh:'🇺🇸 北美市场',en:'🇺🇸 North America'},items:[
-{zh:'TikTok Shop — 美国核心市场，但面临封禁风险',en:'TikTok Shop — Core US market, but facing ban risk'},
-{zh:'Temu — 美国本地商家入驻，弃用中国直邮',en:'Temu — US local merchants, abandoned China direct-mail'},
-{zh:'SHEIN — 美国最大快时尚平台，关税冲击严重',en:'SHEIN — Largest fast-fashion platform in US, tariff impact severe'},
-{zh:'菜鸟 — 2026年将在美国部署机器人仓库',en:'Cainiao — Deploying robot warehouses in US in 2026'},
-{zh:'顺丰 — 鄂州枢纽对接北美航线',en:'SF Express — Ezhou hub connects to N. America routes'},
-{zh:'速卖通 — 美国增速TOP10',en:'AliExpress — Top 10 fastest growing in US'}]},
-'europe':{title:{zh:'🇪🇺 欧洲市场',en:'🇪🇺 Europe'},items:[
-{zh:'TikTok Shop — 2026年进军荷兰、比利时、瑞典、波兰',en:'TikTok Shop — Entering Netherlands, Belgium, Sweden, Poland in 2026'},
-{zh:'SHEIN — 伦敦IPO进行中，FCA已批准',en:'SHEIN — London IPO underway, FCA approved'},
-{zh:'Temu — 欧洲成为替代增长市场',en:'Temu — Europe as alternative growth market'},
-{zh:'菜鸟 — 荷兰、西班牙、法国、德国部署机器人仓',en:'Cainiao — Robot warehouses in Netherlands, Spain, France, Germany'},
-{zh:'京东产发 — 欧洲布局超15个物流项目',en:'JD Property — 15+ logistics projects in Europe'},
-{zh:'顺丰 — 跨境干线覆盖欧洲',en:'SF Express — Cross-border routes cover Europe'}]},
-'sea':{title:{zh:'🌏 东南亚市场（出海基本盘）',en:'🌏 Southeast Asia (Core Market)'},items:[
-{zh:'极兔速递 — 市占率32.8%，绝对龙头',en:'J&T Express — 32.8% market share, absolute leader'},
-{zh:'百世 — 越南"独角兽"，全链路升级',en:'BEST Inc — Vietnam "unicorn", full-chain upgrade'},
-{zh:'Lazada（阿里系）— 东南亚最大电商平台',en:'Lazada (Alibaba) — Largest e-commerce in SE Asia'},
-{zh:'Shopee — 区域霸主（非中资但竞争激烈）',en:'Shopee — Regional powerhouse (non-Chinese but competitive)'},
-{zh:'菜鸟 — 东南亚物流网络核心节点',en:'Cainiao — Core logistics network node'},
-{zh:'TikTok Shop — 东南亚是其增长最快区域',en:'TikTok Shop — SE Asia is its fastest-growing region'}]},
-'east-asia':{title:{zh:'🇨🇳 中国（出海大本营）',en:'🇨🇳 China (Home Base)'},items:[
-{zh:'所有平台和物流商的总部和供应链核心',en:'HQ and supply chain core for all platforms and logistics'},
-{zh:'全球最大的跨境电商商品生产基地',en:'World\'s largest cross-border e-com production base'},
-{zh:'菜鸟、顺丰、极兔的国内网络基础',en:'Domestic network base for Cainiao, SF, J&T'},
-{zh:'京东产发国内建面规模第二',en:'JD Property: #2 in domestic warehouse area'}]},
-'jp-kr':{title:{zh:'🇯🇵🇰🇷 日韩市场',en:'🇯🇵🇰🇷 Japan & Korea'},items:[
-{zh:'TikTok Shop — 2026年计划进入韩国',en:'TikTok Shop — Planning Korea entry in 2026'},
-{zh:'速卖通 — 韩国与YouTube合作',en:'AliExpress — Korea YouTube partnership'},
-{zh:'菜鸟 — 日韩海外仓布局',en:'Cainiao — Japan/Korea warehouse network'},
-{zh:'极兔 — 日本市场有布局',en:'J&T Express — Japan market presence'}]},
-'south-america':{title:{zh:'🇧🇷 拉美市场',en:'🇧🇷 Latin America'},items:[
-{zh:'SHEIN — 巴西市场表现强劲',en:'SHEIN — Strong in Brazil'},
-{zh:'Temu — 进入拉美多个国家',en:'Temu — Entered multiple LatAm countries'},
-{zh:'速卖通 — 拉美传统优势市场',en:'AliExpress — Traditional strength in LatAm'},
-{zh:'极兔 — 巴西快递网络',en:'J&T Express — Brazil delivery network'}]},
-'middle-east':{title:{zh:'🌍 中东市场',en:'🌍 Middle East'},items:[
-{zh:'TikTok Shop — 中东市场活跃',en:'TikTok Shop — Active in Middle East'},
-{zh:'SHEIN — 中东地区快速增长',en:'SHEIN — Rapid growth in Middle East'},
-{zh:'速卖通 — 中东传统优势市场',en:'AliExpress — Traditional strength in Middle East'},
-{zh:'极兔 — 沙特等国快递网络',en:'J&T Express — Delivery network in Saudi Arabia etc.'}]},
-'oceania':{title:{zh:'🇦🇺 大洋洲市场',en:'🇦🇺 Oceania'},items:[
-{zh:'Temu — 澳大利亚市场增长',en:'Temu — Growing in Australia'},
-{zh:'菜鸟 — 澳洲海外仓布局',en:'Cainiao — Australia warehouse network'},
-{zh:'SHEIN — 澳洲快时尚市场',en:'SHEIN — Australia fast-fashion market'},
-{zh:'百世 — 东南亚-澳洲航线',en:'BEST Inc — SE Asia-Australia routes'}]}
+// MAP DATA — Enhanced with dot sizes and company details
+// Region positions on SVG (cx, cy for label placement)
+const REGIONS={
+'north-america':{
+  title:{zh:'🇺🇸 北美市场',en:'🇺🇸 North America'},
+  stat:{zh:'全球最大消费市场，但政策收紧中',en:'Largest consumer market, policy tightening'},
+  labelPos:[195,140],
+  companies:[
+    {name:'TikTok Shop',color:'#ff0050',cx:200,cy:140,r:11,share:{zh:'核心市场',en:'Core market'},detail:{zh:'美国是TikTok Shop最大海外市场，但面临强制出售或封禁风险',en:'US is TikTok Shop\'s largest overseas market but faces ban risk'}},
+    {name:'Temu',color:'#f59e0b',cx:170,cy:115,r:9,share:{zh:'第二大市场',en:'#2 market'},detail:{zh:'弃用中国直邮，转向美国本地商家运营',en:'Shifted from China-direct to US local merchants'}},
+    {name:'SHEIN',color:'#ec4899',cx:225,cy:160,r:9,share:{zh:'总部所在地',en:'HQ location'},detail:{zh:'美国是SHEIN最大市场，de minimis取消冲击巨大',en:'US is SHEIN\'s biggest market, severely impacted by de minimis removal'}},
+    {name:'Cainiao',color:'#06b6d4',cx:155,cy:95,r:7,share:{zh:'2026部署机器人仓',en:'2026 Robot warehouses'},detail:{zh:'2026年将在美国部署自研仓储机器人+AI调度系统',en:'Deploying self-developed robots + AI dispatch in US in 2026'}},
+    {name:'SF Express',color:'#6366f1',cx:240,cy:125,r:6,share:{zh:'鄂州枢纽对接',en:'Ezhou hub link'},detail:{zh:'鄂州花湖机场货运航线覆盖北美',en:'Ezhou Huahu Airport cargo routes cover N. America'}},
+    {name:'AliExpress',color:'#06b6d4',cx:185,cy:170,r:7,share:{zh:'增速TOP10',en:'Top 10 growth'},detail:{zh:'Similarweb数据显示美国访问量增长18.7%',en:'US visit growth 18.7% per Similarweb'}}
+  ]},
+'europe':{
+  title:{zh:'🇪🇺 欧洲市场',en:'🇪🇺 Europe'},
+  stat:{zh:'2026年出海新热土，各平台密集布局',en:'2026\'s new frontier, dense platform expansion'},
+  labelPos:[490,78],
+  companies:[
+    {name:'TikTok Shop',color:'#ff0050',cx:490,cy:100,r:10,share:{zh:'2026进4国',en:'2026: 4 countries'},detail:{zh:'计划进军荷兰、比利时、瑞典、波兰',en:'Entering Netherlands, Belgium, Sweden, Poland'}},
+    {name:'SHEIN',color:'#ec4899',cx:520,cy:90,r:9,share:{zh:'伦敦IPO',en:'London IPO'},detail:{zh:'伦敦IPO进行中，FCA已批准，估值500亿美元',en:'London IPO underway, FCA approved, $50B valuation'}},
+    {name:'Cainiao',color:'#06b6d4',cx:470,cy:115,r:8,share:{zh:'5国机器人仓',en:'5-country robot warehouses'},detail:{zh:'荷兰、西班牙、法国、德国部署机器人仓',en:'Robot warehouses in Netherlands, Spain, France, Germany'}},
+    {name:'JD Property',color:'#ef4444',cx:510,cy:120,r:8,share:{zh:'15+项目',en:'15+ projects'},detail:{zh:'欧洲布局超15个物流项目，IPO融资重点',en:'15+ logistics projects, IPO proceeds focused here'}},
+    {name:'Temu',color:'#f59e0b',cx:480,cy:82,r:7,share:{zh:'替代增长市场',en:'Alt growth market'},detail:{zh:'欧洲成为美国之外最重要的替代增长市场',en:'Most important alternative growth market outside US'}},
+    {name:'AliExpress',color:'#06b6d4',cx:535,cy:105,r:6,share:{zh:'传统市场',en:'Traditional market'},detail:{zh:'欧洲是速卖通传统优势市场',en:'Europe is AliExpress\' traditional stronghold'}},
+    {name:'SF Express',color:'#6366f1',cx:455,cy:95,r:5,share:{zh:'跨境干线覆盖',en:'Cross-border routes'},detail:{zh:'跨境干线网络覆盖欧洲主要国家',en:'Cross-border routes cover major European countries'}}
+  ]},
+'southeast-asia':{
+  title:{zh:'🌏 东南亚市场',en:'🌏 Southeast Asia'},
+  stat:{zh:'中国电商出海基本盘，增长最快区域',en:'Core market for China, fastest-growing region'},
+  labelPos:[780,218],
+  companies:[
+    {name:'J&T Express',color:'#ff4444',cx:780,cy:240,r:13,share:{zh:'32.8%市占率',en:'32.8% share'},detail:{zh:'东南亚快递市场绝对龙头，覆盖印尼、越南、马来西亚等',en:'Absolute leader in SE Asia express, covers Indonesia, Vietnam, Malaysia etc.'}},
+    {name:'TikTok Shop',color:'#ff0050',cx:810,cy:260,r:10,share:{zh:'增长最快区域',en:'Fastest growth'},detail:{zh:'东南亚是TikTok Shop全球增长最快的区域',en:'SE Asia is TikTok Shop\'s fastest-growing region globally'}},
+    {name:'Cainiao',color:'#06b6d4',cx:760,cy:225,r:8,share:{zh:'核心物流节点',en:'Core logistics node'},detail:{zh:'东南亚物流网络核心节点，支撑阿里系出海',en:'Core logistics network node powering Alibaba ecosystem'}},
+    {name:'BEST Inc',color:'#22c55e',cx:800,cy:248,r:7,share:{zh:'越南"独角兽"',en:'Vietnam "unicorn"'},detail:{zh:'越南媒体称百世越南为快递界"独角兽"',en:'Vietnamese media calls it the "unicorn" of express delivery'}},
+    {name:'Lazada',color:'#06b6d4',cx:790,cy:232,r:9,share:{zh:'最大电商平台',en:'Largest e-com platform'},detail:{zh:'阿里系Lazada是东南亚最大电商平台',en:'Alibaba\'s Lazada is the largest e-commerce platform in SE Asia'}}
+  ]},
+'east-asia':{
+  title:{zh:'🇨🇳 中国（出海大本营）',en:'🇨🇳 China (Home Base)'},
+  stat:{zh:'全球最大的跨境电商商品生产基地',en:'World\'s largest cross-border e-com production base'},
+  labelPos:[795,105],
+  companies:[
+    {name:'Cainiao',color:'#06b6d4',cx:790,cy:120,r:10,share:{zh:'总部+核心网络',en:'HQ + core network'},detail:{zh:'菜鸟总部杭州，国内仓储网络覆盖全国',en:'Cainiao HQ in Hangzhou, nationwide warehouse network'}},
+    {name:'SF Express',color:'#6366f1',cx:810,cy:135,r:10,share:{zh:'国内最大独立快递',en:'Largest independent courier'},detail:{zh:'鄂州花湖机场是亚洲最大专业货运枢纽',en:'Ezhou Huahu Airport: Asia\'s largest cargo hub'}},
+    {name:'J&T Express',color:'#ff4444',cx:770,cy:115,r:8,share:{zh:'中国市场激烈竞争',en:'Fierce China competition'},detail:{zh:'中国快递市场竞争白热化，利润率承压',en:'Fierce competition squeezing margins'}},
+    {name:'JD Property',color:'#ef4444',cx:825,cy:125,r:8,share:{zh:'建面规模第二',en:'#2 in warehouse area'},detail:{zh:'国内建面规模第二，为希音建成肇庆枢纽',en:'#2 in domestic warehouse area, Zhaoqing hub for SHEIN'}},
+    {name:'AliExpress',color:'#06b6d4',cx:800,cy:110,r:8,share:{zh:'总部（阿里系）',en:'HQ (Alibaba)'},detail:{zh:'阿里巴巴总部杭州，速卖通+菜鸟+Lazada形成出海矩阵',en:'Alibaba HQ Hangzhou, AliExpress+Cainiao+Lazada form global matrix'}},
+    {name:'TikTok Shop',color:'#ff0050',cx:780,cy:140,r:8,share:{zh:'字节跳动总部',en:'ByteDance HQ'},detail:{zh:'字节跳动总部北京，TikTok Shop供应链核心',en:'ByteDance HQ Beijing, core supply chain for TikTok Shop'}}
+  ]},
+'japan-korea':{
+  title:{zh:'🇯🇵🇰🇷 日韩市场',en:'🇯🇵🇰🇷 Japan & Korea'},
+  stat:{zh:'高消费力市场，电商渗透率持续提升',en:'High-spending market, rising e-com penetration'},
+  labelPos:[890,100],
+  companies:[
+    {name:'TikTok Shop',color:'#ff0050',cx:895,cy:112,r:8,share:{zh:'2026计划进入韩国',en:'2026: Korea entry'},detail:{zh:'2026年计划进入韩国市场',en:'Planning Korea market entry in 2026'}},
+    {name:'AliExpress',color:'#06b6d4',cx:885,cy:128,r:7,share:{zh:'韩国YouTube合作',en:'Korea YouTube collab'},detail:{zh:'首个在韩国与YouTube合作的中国电商平台',en:'First Chinese e-com to partner with YouTube in Korea'}},
+    {name:'Cainiao',color:'#06b6d4',cx:905,cy:100,r:6,share:{zh:'日韩海外仓',en:'Japan/Korea warehouses'},detail:{zh:'日韩海外仓布局，服务跨境物流',en:'Japan/Korea warehouse network for cross-border logistics'}},
+    {name:'J&T Express',color:'#ff4444',cx:878,cy:142,r:5,share:{zh:'日本市场布局',en:'Japan presence'},detail:{zh:'在日本市场有快递网络布局',en:'Delivery network presence in Japan'}}
+  ]},
+'south-america':{
+  title:{zh:'🇧🇷 拉美市场',en:'🇧🇷 Latin America'},
+  stat:{zh:'新兴增长市场，巴西为核心',en:'Emerging growth market, Brazil is core'},
+  labelPos:[255,350],
+  companies:[
+    {name:'SHEIN',color:'#ec4899',cx:260,cy:340,r:8,share:{zh:'巴西市场强劲',en:'Strong in Brazil'},detail:{zh:'SHEIN在巴西市场表现强劲',en:'SHEIN performing strongly in Brazil'}},
+    {name:'Temu',color:'#f59e0b',cx:245,cy:315,r:7,share:{zh:'进入多国',en:'Multiple countries'},detail:{zh:'已进入拉美多个主要国家',en:'Entered multiple major LatAm countries'}},
+    {name:'AliExpress',color:'#06b6d4',cx:275,cy:360,r:6,share:{zh:'传统优势市场',en:'Traditional strength'},detail:{zh:'拉美是速卖通传统优势市场',en:'LatAm is AliExpress\' traditional stronghold'}},
+    {name:'J&T Express',color:'#ff4444',cx:250,cy:380,r:6,share:{zh:'巴西快递网络',en:'Brazil delivery network'},detail:{zh:'在巴西建立了快递网络',en:'Established delivery network in Brazil'}}
+  ]},
+'middle-east':{
+  title:{zh:'🌍 中东市场',en:'🌍 Middle East'},
+  stat:{zh:'高客单价市场，消费力强',en:'High AOV market, strong spending power'},
+  labelPos:[598,155],
+  companies:[
+    {name:'TikTok Shop',color:'#ff0050',cx:600,cy:165,r:8,share:{zh:'市场活跃',en:'Active market'},detail:{zh:'TikTok Shop在中东市场活跃',en:'TikTok Shop active in Middle East'}},
+    {name:'SHEIN',color:'#ec4899',cx:585,cy:178,r:7,share:{zh:'快速增长',en:'Rapid growth'},detail:{zh:'SHEIN在中东地区快速增长',en:'SHEIN growing rapidly in Middle East'}},
+    {name:'AliExpress',color:'#06b6d4',cx:615,cy:185,r:6,share:{zh:'传统优势',en:'Traditional strength'},detail:{zh:'速卖通在中东有传统优势',en:'AliExpress has traditional strength in Middle East'}},
+    {name:'J&T Express',color:'#ff4444',cx:598,cy:195,r:5,share:{zh:'沙特等国布局',en:'Saudi presence'},detail:{zh:'极兔在沙特等国建立了快递网络',en:'J&T delivery network in Saudi Arabia etc.'}}
+  ]},
+'oceania':{
+  title:{zh:'🇦🇺 大洋洲市场',en:'🇦🇺 Oceania'},
+  stat:{zh:'成熟消费市场，客单价高',en:'Mature market, high AOV'},
+  labelPos:[860,370],
+  companies:[
+    {name:'Temu',color:'#f59e0b',cx:860,cy:380,r:8,share:{zh:'澳洲市场增长',en:'Growing in Australia'},detail:{zh:'Temu在澳大利亚市场持续增长',en:'Temu growing in Australia'}},
+    {name:'Cainiao',color:'#06b6d4',cx:845,cy:395,r:7,share:{zh:'澳洲海外仓',en:'Australia warehouses'},detail:{zh:'菜鸟在澳洲布局海外仓网络',en:'Cainiao warehouse network in Australia'}},
+    {name:'SHEIN',color:'#ec4899',cx:875,cy:395,r:6,share:{zh:'快时尚市场',en:'Fast-fashion market'},detail:{zh:'SHEIN在澳洲快时尚市场份额领先',en:'SHEIN leads in Australia fast-fashion market'}},
+    {name:'BEST Inc',color:'#22c55e',cx:855,cy:410,r:5,share:{zh:'东南亚-澳洲航线',en:'SE Asia-Aus routes'},detail:{zh:'百世通过东南亚-澳洲航线拓展市场',en:'BEST expanding via SE Asia-Australia routes'}}
+  ]}
 };
 
 // LEGEND
@@ -817,7 +896,7 @@ const LEGEND=[
 {color:'#ff0050',zh:'TikTok Shop',en:'TikTok Shop'},
 {color:'#f59e0b',zh:'Temu',en:'Temu'},
 {color:'#ec4899',zh:'SHEIN',en:'SHEIN'},
-{color:'#06b6d4',zh:'速卖通/菜鸟',en:'AliExpress/Cainiao'},
+{color:'#06b6d4',zh:'速卖通/菜鸟/Lazada',en:'AliExpress/Cainiao/Lazada'},
 {color:'#ef4444',zh:'京东/京东产发',en:'JD/JD Property'},
 {color:'#6366f1',zh:'顺丰',en:'SF Express'},
 {color:'#ff4444',zh:'极兔',en:'J&T Express'},
@@ -1148,10 +1227,34 @@ function renderCmp(elId,data){
 }
 
 function renderLegend(){
-  $('mapLegend').innerHTML=LEGEND.map(l=>`<span><span class="dot" style="background:${l.color}"></span>${L(l)}</span>`).join('');
+  const sizeHint=curLang==='en'?'Dot size = market share':'圆点大小 = 市场份额';
+  $('mapLegend').innerHTML=LEGEND.map(l=>`<span><span class="dot" style="background:${l.color}"></span>${L(l)}</span>`).join('')
+    +`<span class="size-demo"><span class="size-dot" style="width:6px;height:6px"></span><span class="size-dot" style="width:10px;height:10px"></span><span class="size-dot" style="width:14px;height:14px"></span><span style="font-size:.62rem;margin-left:2px">${sizeHint}</span></span>`;
 }
 
-function renderAll(){renderNews();renderKW();renderCards();renderTrends();renderTL();renderCmp('cmpEcom',CMP_ECOM);renderCmp('cmpLogi',CMP_LOGI);renderLegend();bindCardHover()}
+function renderMapDots(){
+  const g=$('mapDots');if(!g)return;
+  let html='';
+  for(const[regKey,reg]of Object.entries(REGIONS)){
+    reg.companies.forEach(co=>{
+      html+=`<circle class="map-dot pulse" cx="${co.cx}" cy="${co.cy}" r="${co.r}" fill="${co.color}" opacity=".75" data-region="${regKey}" data-comp="${co.name}" tabindex="0" role="button" aria-label="${co.name}"/>`;
+    });
+  }
+  g.innerHTML=html;
+}
+
+function renderMapLabels(){
+  const g=$('mapLabels');if(!g)return;
+  let html='';
+  for(const[regKey,reg]of Object.entries(REGIONS)){
+    const[lx,ly]=reg.labelPos;
+    html+=`<text class="map-label" x="${lx}" y="${ly}" text-anchor="middle">${L(reg.title)}</text>`;
+    html+=`<text class="map-sublabel" x="${lx}" y="${ly+12}" text-anchor="middle">${L(reg.stat)}</text>`;
+  }
+  g.innerHTML=html;
+}
+
+function renderAll(){renderNews();renderKW();renderCards();renderTrends();renderTL();renderCmp('cmpEcom',CMP_ECOM);renderCmp('cmpLogi',CMP_LOGI);renderLegend();renderMapDots();renderMapLabels();bindMapInteractions();bindCardHover();resetMapPanel()}
 
 /* ==========================================
    INTERACTIONS
@@ -1192,39 +1295,113 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(a=>a.addEventListen
   $('navLinks').classList.remove('open');$('hamburger').classList.remove('open');document.body.style.overflow='';
 }));
 
-// --- Map ---
-function showMapInfo(key,anchorEl){
-  const data=MAP[key];if(!data)return;
-  const info=$('mapInfo');
-  const d=I[curLang]||{};
-  info.innerHTML=`<button class="close-btn" aria-label="关闭">✕</button><h4>${L(data.title)}</h4><ul>${data.items.map(i=>`<li>${L(i)}</li>`).join('')}</ul>`;
-  // Position: use fixed positioning based on click coordinates
-  const svg=document.querySelector('.map-svg'),rect=svg.getBoundingClientRect();
-  const cx=parseFloat(anchorEl.getAttribute('cx')),cy=parseFloat(anchorEl.getAttribute('cy'));
-  const px=rect.left+cx*(rect.width/1000),py=rect.top+cy*(rect.height/500);
-  // Desktop: beside dot; Mobile: bottom sheet (via CSS)
-  if(window.innerWidth>768){
-    let left=px+15,top_=py-30;
-    if(left+330>window.innerWidth)left=px-340;
-    if(top_<10)top_=10;
-    if(top_+250>window.innerHeight)top_=window.innerHeight-260;
-    info.style.left=left+'px';info.style.top=top_+'px';
-    info.style.bottom='auto';info.style.right='auto';
-  }
-  info.classList.add('show');
-  info.querySelector('.close-btn').onclick=()=>info.classList.remove('show');
+// --- Map Panel ---
+function resetMapPanel(){
+  $('mapPanelEmpty').style.display='';
+  $('mapPanelContent').style.display='none';
+  $('mapPanelContent').innerHTML='';
+  // Clear all highlights
+  document.querySelectorAll('.land').forEach(l=>{l.classList.remove('hl','dim')});
+  document.querySelectorAll('.map-dot').forEach(d=>d.classList.remove('pulse'));
+  // Re-add pulse to all dots
+  document.querySelectorAll('.map-dot').forEach(d=>d.classList.add('pulse'));
 }
 
-document.querySelectorAll('.map-dot').forEach(dot=>{
-  const handler=()=>showMapInfo(dot.dataset.info,dot);
-  dot.addEventListener('click',e=>{e.stopPropagation();handler()});
-  dot.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();handler()}});
-  // Hover highlight
-  const reg=dot.dataset.info;
-  dot.addEventListener('mouseenter',()=>document.querySelectorAll('.land[data-region="'+reg+'"]').forEach(l=>l.classList.add('hl')));
-  dot.addEventListener('mouseleave',()=>document.querySelectorAll('.land[data-region="'+reg+'"]').forEach(l=>l.classList.remove('hl')));
-});
-document.addEventListener('click',e=>{if(!e.target.closest('.map-info')&&!e.target.closest('.map-dot'))$('mapInfo').classList.remove('show')});
+function showRegionPanel(regKey){
+  const reg=REGIONS[regKey];if(!reg)return;
+  const d=I[curLang]||{};
+  $('mapPanelEmpty').style.display='none';
+  const content=$('mapPanelContent');
+  content.style.display='';
+
+  // Highlight this region, dim others
+  document.querySelectorAll('.land').forEach(l=>{
+    const lr=l.dataset.region;
+    if(lr===regKey){l.classList.add('hl');l.classList.remove('dim')}
+    else{l.classList.remove('hl');l.classList.add('dim')}
+  });
+
+  let html=`<div class="map-panel-head"><h3>${d.m_panel_region||'区域市场'}</h3><button class="map-panel-close" onclick="resetMapPanel()" aria-label="关闭">✕</button></div><div class="map-panel-body">`;
+  html+=`<div class="region-title">${L(reg.title)} <span class="region-tag">${L(reg.stat)}</span></div>`;
+  html+=`<div class="region-companies">`;
+  reg.companies.forEach(co=>{
+    html+=`<div class="region-co" data-comp="${co.name}" onclick="showCompPanel('${co.name}')">
+      <span class="co-dot" style="background:${co.color}"></span>
+      <span class="co-name">${co.name}</span>
+      <span class="co-share">${L(co.share)}</span>
+    </div>`;
+  });
+  html+=`</div></div>`;
+  content.innerHTML=html;
+}
+
+function showCompPanel(compName){
+  const d=I[curLang]||{};
+  // Find all regions this company operates in
+  const regions=[];
+  for(const[regKey,reg]of Object.entries(REGIONS)){
+    const co=reg.companies.find(c=>c.name===compName);
+    if(co)regions.push({regKey,reg,co});
+  }
+  if(!regions.length)return;
+
+  $('mapPanelEmpty').style.display='none';
+  const content=$('mapPanelContent');
+  content.style.display='';
+
+  // Highlight regions with this company, dim others
+  const activeRegKeys=regions.map(r=>r.regKey);
+  document.querySelectorAll('.land').forEach(l=>{
+    if(activeRegKeys.includes(l.dataset.region)){l.classList.add('hl');l.classList.remove('dim')}
+    else{l.classList.remove('hl');l.classList.add('dim')}
+  });
+
+  // Find company color
+  const coColor=regions[0].co.color;
+
+  // Company links
+  const compLinks={'TikTok Shop':'https://seller.tiktok.com/','SHEIN':'https://www.shein.com/','AliExpress':'https://www.aliexpress.com/','Temu':'https://www.temu.com/','JD International':'https://www.joybuy.com/','Cainiao':'https://www.cainiao.com/','SF Express':'https://www.sf-express.com/','J&T Express':'https://www.jet.co.id/','JD Property':'https://jdcproperty.com/','BEST Inc':'https://www.800best.cn/','Lazada':'https://www.lazada.com/'};
+  const compLink=compLinks[compName]||'';
+
+  let html=`<div class="map-panel-head"><h3>${d.m_panel_comp||'企业布局'}</h3><button class="map-panel-close" onclick="resetMapPanel()" aria-label="关闭">✕</button></div><div class="map-panel-body">`;
+  html+=`<div class="comp-title"><span class="co-dot" style="background:${coColor};width:12px;height:12px;border-radius:50%;display:inline-block"></span>${compName}</div>`;
+  if(compLink)html+=`<a class="comp-link" href="${compLink}" target="_blank" rel="noopener">🔗 ${curLang==='en'?'Visit website':'访问官网'}</a>`;
+  html+=`<div class="comp-regions">${regions.map(r=>`<span class="comp-region-tag" onclick="showRegionPanel('${r.regKey}')">${L(r.reg.title)}</span>`).join('')}</div>`;
+  html+=`<div class="region-companies">`;
+  regions.forEach(r=>{
+    html+=`<div class="region-co">
+      <span class="co-dot" style="background:${r.co.color}"></span>
+      <span class="co-name">${L(r.reg.title).replace(/🇺🇸|🇪🇺|🌏|🇨🇳|🇯🇵🇰🇷|🇧🇷|🌍|🇦🇺/g,'').trim()}</span>
+      <span class="co-share">${L(r.co.share)}</span>
+    </div>
+    <div class="co-detail" style="display:block">${L(r.co.detail)}</div>`;
+  });
+  html+=`</div></div>`;
+  content.innerHTML=html;
+}
+
+// --- Map Interactions ---
+function bindMapInteractions(){
+  // Dot clicks
+  document.querySelectorAll('.map-dot').forEach(dot=>{
+    const handler=()=>{
+      const comp=dot.dataset.comp;
+      if(comp)showCompPanel(comp);
+    };
+    dot.addEventListener('click',e=>{e.stopPropagation();handler()});
+    dot.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();handler()}});
+    // Hover: highlight region
+    const reg=dot.dataset.region;
+    dot.addEventListener('mouseenter',()=>document.querySelectorAll('.land[data-region="'+reg+'"]').forEach(l=>l.classList.add('hl')));
+    dot.addEventListener('mouseleave',()=>{if(!$('mapPanelContent').style.display)document.querySelectorAll('.land').forEach(l=>l.classList.remove('hl'))});
+  });
+
+  // Land clicks → show region
+  document.querySelectorAll('.land').forEach(land=>{
+    land.addEventListener('click',e=>{e.stopPropagation();showRegionPanel(land.dataset.region)});
+    land.style.cursor='pointer';
+  });
+}
 
 // --- Keywords ---
 document.addEventListener('click',e=>{
@@ -1249,14 +1426,20 @@ function bindCardHover(){
     const name=card.dataset.name,match=CR[name];if(!match)return;
     card.addEventListener('mouseenter',()=>{
       match.r.forEach(reg=>{
-        document.querySelectorAll('.land[data-region="'+reg+'"]').forEach(l=>{l.style.fill='rgba(99,102,241,.15)';l.style.stroke='var(--ac)'});
-        document.querySelectorAll('.map-dot[data-info="'+reg+'"]').forEach(d=>{d.style.filter='brightness(2)';d.style.transform='scale(1.5)';d.style.transition='all .3s'});
+        document.querySelectorAll('.land[data-region="'+reg+'"]').forEach(l=>l.classList.add('hl'));
+        document.querySelectorAll('.map-dot[data-region="'+reg+'"]').forEach(d=>{d.style.filter='brightness(2) scale(1.3)';d.style.transform='scale(1.3)';d.style.transition='all .3s'});
       });
     });
     card.addEventListener('mouseleave',()=>{
-      document.querySelectorAll('.land').forEach(l=>{l.style.fill='';l.style.stroke=''});
+      document.querySelectorAll('.land').forEach(l=>l.classList.remove('hl'));
       document.querySelectorAll('.map-dot').forEach(d=>{d.style.filter='';d.style.transform=''});
     });
+    // Click → show company on map
+    card.addEventListener('click',()=>{
+      document.getElementById('map').scrollIntoView({behavior:'smooth',block:'start'});
+      setTimeout(()=>showCompPanel(name),400);
+    });
+    card.style.cursor='pointer';
   });
 }
 
