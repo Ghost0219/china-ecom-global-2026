@@ -247,58 +247,52 @@ section+section::before{
 .map-filter-btn.active{background:rgba(255,105,0,.1);border-color:var(--ac);color:var(--ac)}
 .map-filter-btn .fdot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
-/* Company checkbox filter */
-.map-company-filter{position:relative}
-.map-company-trigger{
-  display:flex;align-items:center;gap:.35rem;
-  padding:.3rem .7rem;border-radius:999px;font-size:.68rem;cursor:pointer;
-  background:var(--sf);border:1px solid var(--bd);color:var(--dim);
-  transition:all .25s var(--ease);min-height:30px;
-}
-.map-company-trigger:hover{border-color:var(--ac);color:var(--ac)}
-.map-company-trigger svg{opacity:.5}
-.map-company-count{
-  background:var(--ac);color:#fff;font-size:.58rem;font-weight:700;
-  min-width:16px;height:16px;border-radius:8px;display:inline-flex;
-  align-items:center;justify-content:center;padding:0 4px;
-}
-.map-company-dropdown{
-  position:absolute;top:calc(100% + 4px);left:0;z-index:1000;
+/* Company filter panel (right sidebar) */
+.map-company-panel{
   background:var(--sf);border:1px solid var(--bd);border-radius:var(--rs);
-  padding:.4rem;min-width:200px;max-height:320px;overflow-y:auto;
-  box-shadow:0 8px 24px rgba(0,0,0,.4);
+  margin-bottom:.8rem;overflow:hidden;
 }
-.map-company-dropdown label{
+.map-company-panel-head{
+  padding:.6rem .8rem;border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:.72rem;font-weight:600;color:var(--tx);
+}
+.map-company-clear{
+  background:none;border:none;color:var(--ac);font-size:.62rem;cursor:pointer;
+  padding:.15rem .4rem;border-radius:4px;
+}
+.map-company-clear:hover{background:rgba(255,105,0,.1)}
+.map-company-list{
+  max-height:260px;overflow-y:auto;
+  padding:.3rem .4rem;
+}
+.map-company-list label{
   display:flex;align-items:center;gap:.5rem;
-  padding:.35rem .5rem;border-radius:8px;cursor:pointer;
-  font-size:.72rem;color:var(--tx);transition:background .15s;
+  padding:.3rem .4rem;border-radius:6px;cursor:pointer;
+  font-size:.7rem;color:var(--tx);transition:background .15s;
 }
-.map-company-dropdown label:hover{background:var(--sf2)}
-.map-company-dropdown input[type=checkbox]{
+.map-company-list label:hover{background:var(--sf2)}
+.map-company-list input[type=checkbox]{
   appearance:none;-webkit-appearance:none;
-  width:15px;height:15px;border:1.5px solid var(--bd);border-radius:4px;
+  width:14px;height:14px;border:1.5px solid var(--bd);border-radius:4px;
   background:var(--bg);cursor:pointer;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   transition:all .15s;
 }
-.map-company-dropdown input[type=checkbox]:checked{
+.map-company-list input[type=checkbox]:checked{
   background:var(--ac);border-color:var(--ac);
 }
-.map-company-dropdown input[type=checkbox]:checked::after{
-  content:'✓';color:#fff;font-size:10px;font-weight:700;
+.map-company-list input[type=checkbox]:checked::after{
+  content:'✓';color:#fff;font-size:9px;font-weight:700;
 }
-.map-company-dropdown .company-dot{
-  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+.map-company-list .company-dot{
+  width:7px;height:7px;border-radius:50%;flex-shrink:0;
 }
-.map-company-dropdown .dropdown-head{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:.3rem .5rem;margin-bottom:.2rem;border-bottom:1px solid var(--bd);
+.map-company-list .company-type-tag{
+  font-size:.52rem;padding:.05rem .3rem;border-radius:3px;margin-left:auto;flex-shrink:0;
 }
-.map-company-dropdown .dropdown-head span{font-size:.65rem;color:var(--dim)}
-.map-company-dropdown .dropdown-head button{
-  background:none;border:none;color:var(--ac);font-size:.65rem;cursor:pointer;
-}
-.map-company-dropdown .dropdown-head button:hover{text-decoration:underline}
+.map-company-list .company-type-tag.ecom{background:rgba(255,0,80,.1);color:#ff0050}
+.map-company-list .company-type-tag.logi{background:rgba(6,182,212,.1);color:#06b6d4}
 
 /* Region hover overlay */
 .leaflet-region-hover{
@@ -573,7 +567,7 @@ footer .disclaimer{margin-top:.4rem;opacity:.5;font-size:.65rem}
   .map-right{width:100%}
   .map-panel-body{max-height:360px}
   .map-filter-bar{gap:.4rem}
-  .map-company-dropdown{min-width:180px;left:auto;right:0}
+  .map-company-list{max-height:200px}
 
   /* Keyword tooltip → fixed bottom on mobile */
   .kw-tip{
@@ -666,29 +660,24 @@ select:focus-visible,a:focus-visible{outline-offset:3px}
   <div class="map-layout reveal">
     <div class="map-left">
       <div class="map-filter-bar" id="mapFilterBar">
-        <div class="map-company-filter" id="mapCompanyFilter">
-          <button class="map-company-trigger" id="mapCompanyTrigger" onclick="toggleCompanyDropdown()">
-            <span data-i="mf_companies">筛选企业</span>
-            <span class="map-company-count" id="mapCompanyCount" style="display:none">0</span>
-            <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </button>
-          <div class="map-company-dropdown" id="mapCompanyDropdown" style="display:none"></div>
-        </div>
         <button class="map-filter-btn active" data-filter="all" onclick="setMapFilter('all')"><span data-i="mf_all">全部</span></button>
         <button class="map-filter-btn" data-filter="ecom" onclick="setMapFilter('ecom')"><span class="fdot" style="background:#ff0050"></span><span data-i="mf_ecom">电商</span></button>
         <button class="map-filter-btn" data-filter="logi" onclick="setMapFilter('logi')"><span class="fdot" style="background:#06b6d4"></span><span data-i="mf_logi">物流</span></button>
         <button class="map-filter-btn" data-filter="lines" onclick="setMapFilter('lines')"><span data-i="mf_lines">连线</span></button>
         <span id="mapResultCount" style="display:none;font-size:.65rem;color:var(--ac);padding:0 .3rem"></span>
       </div>
-      <div id="leafletMap" style="width:100%;height:480px;border-radius:var(--r);border:1px solid var(--bd);overflow:hidden;box-shadow:inset 0 0 40px rgba(0,0,0,.2);background:#0e0e11"></div>
+      <div id="leafletMap" style="width:100%;height:520px;border-radius:var(--r);border:1px solid var(--bd);overflow:hidden;box-shadow:inset 0 0 40px rgba(0,0,0,.2);background:#0e0e11"></div>
       <div class="map-legend" id="mapLegend"></div>
     </div>
     <div class="map-right">
-      <div class="map-panel" id="mapPanel">
-        <div class="map-panel-empty" id="mapPanelEmpty" style="display:none">
-          <div style="font-size:1.6rem;margin-bottom:.5rem">👆</div>
-          <div data-i="m_hint">点击地图区域或企业圆点查看详情</div>
+      <div class="map-company-panel" id="mapCompanyPanel">
+        <div class="map-company-panel-head">
+          <span data-i="mf_companies">筛选企业</span>
+          <button class="map-company-clear" id="mapCompanyClear" onclick="clearCompanyFilter()" style="display:none" data-i="mf_clear">清除</button>
         </div>
+        <div class="map-company-list" id="mapCompanyList"></div>
+      </div>
+      <div class="map-panel" id="mapPanel">
         <div id="mapPanelContent" style="display:none"></div>
       </div>
     </div>
@@ -764,14 +753,14 @@ tbl_company:'企业',tbl_advantage:'核心优势',tbl_overseas:'出海模式',
 ch_title:'⚠️ 面临的困境',news_from:'来源',view_src:'点击查看原文',explore:'🔗 点击查看原文 →',
 kw_why:'入选原因：',src_btn:'来源',
 m_hint:'点击地图区域或企业圆点查看详情',m_panel_region:'区域市场',m_panel_comp:'企业布局',m_share:'市场份额',m_back:'← 返回区域',m_all:'全部区域',
-mf_all:'全部',mf_ecom:'电商',mf_logi:'物流',mf_lines:'连线',mf_companies:'筛选企业',m_visit:'访问官网',m_network:'全球网络'},
+mf_all:'全部',mf_ecom:'电商',mf_logi:'物流',mf_lines:'连线',mf_companies:'筛选企业',mf_clear:'清除',m_visit:'访问官网',m_network:'全球网络'},
 'zh-TW':{nav0:'動態',nav1:'地圖',nav2:'熱詞',nav3:'電商',nav4:'物流',nav5:'趨勢',nav6:'大事記',nav7:'對比',
 hero_badge:'📊 2026 BRIEFING · 數據截至2026年3月',hero_t1:'中國電商與物流',hero_t2:'出海全景',
 hero_sub:'從TikTok Shop千億美元GMV到菜鳥全球40+海外倉，深度解析電商與物流兩大板塊的全球化戰略、困境與趨勢',
 s1:'全球跨境電商(美元)',s2:'中國佔比',s3:'出海物流訂單增速',s4:'覆蓋國家/總市場',scroll_more:'向下探索',
 n_lab:'📰 最新動態',n_tit:'行業資訊',n_upd:'最後更新：2026-03-25',
 m_lab:'🗺️ 全球佈局',m_tit:'交互式世界地圖',m_desc:'點擊區域或企業圓點，查看各地區的企業佈局詳情。圓點大小代表市場影響力。',m_hint:'點擊地圖區域或企業圓點查看詳情',m_panel_region:'區域市場',m_panel_comp:'企業佈局',m_share:'市場份額',m_back:'← 返回區域',m_all:'全部區域',
-mf_all:'全部',mf_ecom:'電商',mf_logi:'物流',mf_lines:'連線',mf_companies:'篩選企業',m_visit:'訪問官網',m_network:'全球網絡',
+mf_all:'全部',mf_ecom:'電商',mf_logi:'物流',mf_lines:'連線',mf_companies:'篩選企業',mf_clear:'清除',m_visit:'訪問官網',m_network:'全球網絡',
 map_na:'🇺🇸 北美',map_eu:'🇪🇺 歐洲',map_sea:'🌏 東南亞',map_ea:'🇨🇳 東亞',map_jk:'🇯🇵🇰🇷 日韓',map_sa:'🇧🇷 拉美',map_me:'🌍 中東',map_oc:'🇦🇺 大洋洲',
 k_lab:'🏷️ 熱詞雲圖',k_tit:'出海關鍵詞',k_desc:'點擊每個熱詞查看其含義與入選原因。',
 e_lab:'🛒 板塊一',e_tit:'電商平台出海',e_desc:'按體量排序：TikTok Shop、SHEIN、速賣通、Temu、京東國際。機遇與挑戰並存。',
@@ -792,7 +781,7 @@ hero_sub:'From TikTok Shop\'s hundred-billion GMV to Cainiao\'s 40+ overseas war
 s1:'Global Cross-border E-com (USD)',s2:'China Share',s3:'Logistics Order Growth',s4:'Countries Covered / Total',scroll_more:'Explore More',
 n_lab:'📰 Latest Updates',n_tit:'Industry News',n_upd:'Last updated: 2026-03-25',
 m_lab:'🗺️ Global Map',m_tit:'Interactive World Map',m_desc:'Click regions or company dots to see market details. Dot size represents market influence.',m_hint:'Click a region or company dot for details',m_panel_region:'Regional Market',m_panel_comp:'Company Layout',m_share:'Market Share',m_back:'← Back to Region',m_all:'All Regions',
-mf_all:'All',mf_ecom:'E-com',mf_logi:'Logistics',mf_lines:'Lines',mf_companies:'Filter Companies',m_visit:'Visit website',m_network:'Global Network',
+mf_all:'All',mf_ecom:'E-com',mf_logi:'Logistics',mf_lines:'Lines',mf_companies:'Filter Companies',mf_clear:'Clear',m_visit:'Visit website',m_network:'Global Network',
 map_na:'🇺🇸 N. America',map_eu:'🇪🇺 Europe',map_sea:'🌏 SE Asia',map_ea:'🇨🇳 E. Asia',map_jk:'🇯🇵🇰🇷 Japan/Korea',map_sa:'🇧🇷 LatAm',map_me:'🌍 Mid East',map_oc:'🇦🇺 Oceania',
 k_lab:'🏷️ Keywords',k_tit:'Going Global Keywords',k_desc:'Click each keyword to see its meaning and why it was selected.',
 e_lab:'🛒 Sector 1',e_tit:'E-commerce Platforms',e_desc:'Sorted by scale: TikTok Shop, SHEIN, AliExpress, Temu, JD International.',
@@ -1487,8 +1476,8 @@ function setMapFilter(filter){
 
 // Search handler
 function initCompanyFilter(){
-  const dropdown=document.getElementById('mapCompanyDropdown');
-  if(!dropdown)return;
+  const list=document.getElementById('mapCompanyList');
+  if(!list)return;
   // Collect all unique companies with their colors
   const allCompanies=[];
   const seen=new Set();
@@ -1503,12 +1492,15 @@ function initCompanyFilter(){
   // Sort: ecom first, then logi
   allCompanies.sort((a,b)=>a.type.localeCompare(b.type)||a.name.localeCompare(b.name));
 
-  let html=`<div class="dropdown-head"><span>${curLang==='en'?'Select companies':'选择企业'}</span><button onclick="clearCompanyFilter()">${curLang==='en'?'Clear':'清除'}</button></div>`;
+  let html='';
   allCompanies.forEach(co=>{
     const checked=selectedCompanies.has(co.name)?'checked':'';
-    html+=`<label><input type="checkbox" value="${co.name}" ${checked} onchange="toggleCompany('${co.name}')"><span class="company-dot" style="background:${co.color}"></span>${co.name}</label>`;
+    const typeTag=co.type==='ecom'
+      ?`<span class="company-type-tag ecom">${curLang==='en'?'E-com':'电商'}</span>`
+      :`<span class="company-type-tag logi">${curLang==='en'?'Logi':'物流'}</span>`;
+    html+=`<label><input type="checkbox" value="${co.name}" ${checked} onchange="toggleCompany('${co.name}')"><span class="company-dot" style="background:${co.color}"></span>${co.name}${typeTag}</label>`;
   });
-  dropdown.innerHTML=html;
+  list.innerHTML=html;
   updateCompanyCount();
 }
 
@@ -1523,42 +1515,13 @@ function clearCompanyFilter(){
   selectedCompanies.clear();
   updateCompanyCount();
   if(leafletMap)renderMapDots();
-  // Uncheck all
-  document.querySelectorAll('#mapCompanyDropdown input[type=checkbox]').forEach(cb=>cb.checked=false);
+  document.querySelectorAll('#mapCompanyList input[type=checkbox]').forEach(cb=>cb.checked=false);
 }
 
 function updateCompanyCount(){
   const count=selectedCompanies.size;
-  const el=document.getElementById('mapCompanyCount');
-  const trigger=document.getElementById('mapCompanyTrigger');
-  if(el){
-    if(count>0){el.style.display='inline-flex';el.textContent=count;}
-    else el.style.display='none';
-  }
-  if(trigger){
-    const d=I[curLang]||{};
-    const label=count>0?(curLang==='en'?`Companies (${count})`:`已选 ${count} 家`):(d.mf_companies||'筛选企业');
-    trigger.querySelector('span').textContent=label;
-  }
-}
-
-function toggleCompanyDropdown(){
-  const dd=document.getElementById('mapCompanyDropdown');
-  if(!dd)return;
-  const isOpen=dd.style.display!=='none';
-  dd.style.display=isOpen?'none':'block';
-  if(!isOpen){
-    // Close when clicking outside
-    setTimeout(()=>{
-      const handler=(e)=>{
-        if(!dd.contains(e.target)&&!document.getElementById('mapCompanyTrigger').contains(e.target)){
-          dd.style.display='none';
-          document.removeEventListener('click',handler);
-        }
-      };
-      document.addEventListener('click',handler);
-    },10);
-  }
+  const clearBtn=document.getElementById('mapCompanyClear');
+  if(clearBtn)clearBtn.style.display=count>0?'':'none';
 }
 
 function renderMapLabels(){/* merged into renderMapDots */}
